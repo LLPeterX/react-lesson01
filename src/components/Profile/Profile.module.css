@@ -1,0 +1,13 @@
+.content {
+  grid-area: c;
+  background-color: gainsboro;
+}
+
+.content > img {
+  height: 200px;
+}
+
+.item {
+  color: darkslategrey;
+}
+
