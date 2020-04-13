@@ -28,23 +28,28 @@ let usersData = [
 let messagesData = [
     {id:1, message:"Gotta to break free!"},
     {id:2, message:"Помоги с Excel!"},
-    {id:3, nmessage: "Сделай отчет по активам. Лежит в папке N:\\HOME"},
+    {id:3, message: "Сделай отчет по активам. Лежит в папке N:\\HOME"},
     {id:4, message: "Я завхоз и не ебите мне мозги"},
     {id:5, message: "Я поехал в налоговую за документами"},
     {id:101,message: "Стоять, блять! Кто идет?"}
 ];
 
+// let dialogElements = [
+//     <DialogItem name={usersData[0].name} id={usersData[0].id}/>,
+//     <DialogItem name={usersData[1].name} id={usersData[1].id}/>
+// ];
+
+let dialogElements = usersData.map((el) => { return (<DialogItem name={el.name} id={el.id}/>);});
+let messageElements = messagesData.map(e => { return(<Message message={e.message}/>); });
 
 const Dialogs = (props) => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem name={usersData[0].name} id={usersData[0].id}/>
-                <DialogItem name={usersData[1].name} id={usersData[1].id}/>
+                {dialogElements}
             </div>
             <div className={s.messages}>
-                <Message message={messagesData[0].message}/>
-                <Message message={messagesData[1].message}/>
+                {messageElements}
             </div>
         </div>
     );
