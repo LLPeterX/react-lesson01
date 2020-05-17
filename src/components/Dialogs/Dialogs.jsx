@@ -1,58 +1,79 @@
-import React from "react";
+import React from 'react'
 import s from './Dialogs.module.css';
-import { NavLink } from "react-router-dom";
+import DialogItem from './DialogItem/DialogItem';
+import Message from './Message/Message';
+import { Redirect } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+import { TextArea } from '../common/FormControls/FormControls';
+import { required, maxLength } from '../../utils/validators/validators';
 
-const DialogItem = (props) => {
-    return (
-    <div className={`${s.dialog} ${s.active}`}>
-        <NavLink to={"/dialogs/" + props.id}>{props.name}</NavLink>
-    </div>
-    );
+
+// redux forms
+const  maxLength20=maxLength(20);
+
+const DialogForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field name={'newMessageBody'} placeholder="Введите свое сообщение" component={TextArea} 
+        validate={[required, maxLength20]}/>
+      </div>
+      <div>
+        <button>Добавить сообщение</button>
+      </div>
+    </form>
+
+  );
 }
 
-const Message = (props) => {
-    return (
-        <div className={s.message}>{props.message}</div>
-    );
-}
-
-let usersData = [
-    {id:1, name:"Петя"},
-    {id:2, name:"Люда"},
-    {id:3, name:"Ира"},
-    {id:4, name: "Сергеич"},
-    {id:5, name: "Миша"},
-    {id:101,name: "Охранник"}
-];
-
-let messagesData = [
-    {id:1, message:"Gotta to break free!"},
-    {id:2, message:"Помоги с Excel!"},
-    {id:3, message: "Сделай отчет по активам. Лежит в папке N:\\HOME"},
-    {id:4, message: "Я завхоз и не ебите мне мозги"},
-    {id:5, message: "Я поехал в налоговую за документами"},
-    {id:101,message: "Стоять, блять! Кто идет?"}
-];
-
-// let dialogElements = [
-//     <DialogItem name={usersData[0].name} id={usersData[0].id}/>,
-//     <DialogItem name={usersData[1].name} id={usersData[1].id}/>
-// ];
-
-let dialogElements = usersData.map((el) => { return (<DialogItem name={el.name} id={el.id}/>);});
-let messageElements = messagesData.map(e => { return(<Message message={e.message}/>); });
+let DialogFormRedux = reduxForm({form: 'dialogsForm'})(DialogForm);
 
 const Dialogs = (props) => {
-    return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {dialogElements}
-            </div>
-            <div className={s.messages}>
-                {messageElements}
-            </div>
+  let state = props.dialogsPage;
+  let dialogElements = state.usersData.map(e => <DialogItem name={e.name} key={e.id} id={e.id} />); // список юзеров
+  let messageElements = state.msgData.map(m => <Message message={m.message} key={m.id} />); // список нагих сообщений
+  //let newMessageBody = state.newMessageBody;
+
+  // let sendMessage = () => {
+  //   props.sendMessage();
+  // }
+
+  // let onMessageChange = (event) => {
+  //   var text = event.target.value;
+  //   props.updateNewMessage(text);
+  // }
+  console.log('Dialogs props:');
+  console.log(props);
+  if (!props.isAuth) return <Redirect to='/login' />;
+
+  let addMessage = (formData) => {
+    console.log(formData);
+//    props.updateNewMessage(formData.newMessageBody);
+    props.sendMessage(formData.newMessageBody);
+  }
+
+  return (
+    <div className={s.dialogs}>
+      <div className={s.dialogsItems}>
+        {dialogElements}
+      </div>
+      <div className={s.messages}>
+        {messageElements}
+      </div>
+
+      {/* <div>
+        <div>
+          <textarea placeholder="Введите свое сообщение" value={newMessageBody}
+            onChange={onMessageChange}></textarea>
         </div>
-    );
+        <div>
+          <button onClick={sendMessage}>Добавить сообщение</button>
+        </div>
+      </div> */}
+      <DialogFormRedux onSubmit={addMessage}/>
+
+    </div>
+  );
 }
 
 export default Dialogs;

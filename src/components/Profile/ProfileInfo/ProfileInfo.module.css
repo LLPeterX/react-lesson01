@@ -1,3 +1,37 @@
-.descriptionBlock {
-  padding: 10px;
+.container {
+	padding: 10px;
+	display: flex;
+	font-family: Arial, sans-serif;
+	flex-direction: column;
+	
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.header__userInfo {
+	display: flex;
+	flex-direction: column;
+}
+
+.header__userInfo_userName {
+	font-size: 24pt;
+	font-weight: bold;
+}
+
+.avatar {
+	width: 80px;
+}
+
+.contacts {
+	padding-top: 20px;
+}
+
+.contacts__title {
+	font-weight: bold;
+	padding-top: 40px;
+
 }

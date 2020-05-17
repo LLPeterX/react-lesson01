@@ -1,11 +1,27 @@
 import React from 'react';
-import h from './Header.module.css';
+import s from './Header.module.css';
+import volk from '../../assets/images/wolk.jpg';
+import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Header = (props) => {
   return (
-    <header className={h.header}>
-    <img src="./img/wolk.jpg" alt="Logo" />
-  </header>
+    <header className={s.header}>
+      <div className={s.header__logotype}>
+        <img src={volk} alt="Logo" className={s.logo} />
+        <div className={s.title}>Моя соцыальная сеть</div>
+      </div>
+      <div className={s.loginBlock}>
+        {/* В зависимости от значения isAuth отоюражаем либо имя пользователя, либо "Вход" */}
+        {props.isAuth
+          ? <>
+            <div>{props.login}</div>
+            <div><button onClick={props.logout}>Выход</button></div>
+          </>
+          : <NavLink to={'/login'}>Вход</NavLink>}
+      </div>
+
+
+    </header>
   );
 }
 

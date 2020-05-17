@@ -1,0 +1,11 @@
+.preloader {
+  width: 100px;
+}
+
+.preloadContainer {
+  height: 100vh;
+  width: 100vh;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}

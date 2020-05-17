@@ -1,0 +1,3 @@
+  'remotes/origin/master'
+* master
+  remotes/origin/master

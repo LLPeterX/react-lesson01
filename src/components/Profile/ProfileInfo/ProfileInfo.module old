@@ -1,0 +1,53 @@
+.descriptionBlock {
+	padding: 10px;
+	display: flex;
+	font-family: Arial, sans-serif;
+}
+
+.imagePart {
+  margin-left: 100px;
+	float: right;
+	height: 80px;
+}
+
+.avatar {
+	width: 80px;
+}
+
+.userName {
+	font-size: 24pt;
+	font-weight: bold;
+}
+
+
+.contacts {
+	margin-top: 20px;
+
+}
+
+.cont1 {
+	display: flex;
+	width: 400px;
+	border: 1px solid darkgray;
+}
+.cont_name {
+	padding: 5px;
+	width: 200px;
+	text-align: right;
+}
+.cont_value {
+	padding: 5px;
+	width: 200px;
+	text-align: left;
+}
+
+.findWork {
+	margin-top: 10px;
+	font-style: italic;
+}
+
+.contactTitle {
+	font-weight: bold;
+	margin-top: 40px;
+
+}

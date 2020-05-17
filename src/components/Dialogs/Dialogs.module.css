@@ -1,20 +1,25 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    grid-template-areas: "user mess";
 }
 
-.dialogsItems > .dialog{
+.dialogsItems {
+    grid-area: user;
+}
+
+.dialogsItems .dialog{
     padding: 10px;
 }
 
-.dialogsItems > .active {
+.dialogsItems .active {
     color: darkred;
 }
 
 .messages {
-
+    grid-area: mess;
 }
 
-.messages > .message {
+.messages .message {
     padding: 10px;
 }

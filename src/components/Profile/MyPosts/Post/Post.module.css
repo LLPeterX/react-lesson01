@@ -1,10 +1,23 @@
 
 .item {
   color: red;
+  border-style: solid;
+  border-color: black;
+  border-radius: 8px;
+  border-width: 1px;
+  margin-top: 10px;
+  color: black;
+  padding: 10px;
+  background-color: white;
 }
 
-.item > img {
+.item img {
   height: 60px;
   border-radius: 10px;
   padding: 5px;
+  
+}
+
+.like {
+  display: block;
 }

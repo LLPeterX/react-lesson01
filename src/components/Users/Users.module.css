@@ -1,0 +1,45 @@
+.userPhoto {
+  width: 80px;
+}
+
+.userData {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 8px;
+  
+}
+
+.selectedPage {
+  font-weight: bold;
+  font-size: 120%;
+  background-color: white;
+}
+
+.pagesMenu {
+  border: 1px solid black;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+.pagesMenu > div {
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 1px solid black;
+  text-align: center;
+
+}
+
+.paginator {
+	display: inline;
+}
+
+.paginator_item{
+	border: 1px solid black;
+	padding: 5px;
+	text-decoration: none;
+	list-style: none;
+	display: inline-block;
+	
+}

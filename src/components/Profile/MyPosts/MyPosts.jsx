@@ -1,33 +1,66 @@
-// точку с запятой можно не ставить
 import React from 'react'
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
+import { Field, reduxForm } from 'redux-form';
+import {required, maxLength} from '../../../utils/validators/validators';
+import { TextArea } from '../../common/FormControls/FormControls';
 
-let postsData = [
-  {id:1, message:"Gotta to break free!", likes:10},
-  {id:2, message:"Помоги с Excel!", likes:12},
-  {id:3, nmessage: "Сделай отчет по активам. Лежит в папке N:\\HOME", likes:1},
-  {id:4, message: "Я завхоз и не ебите мне мозги", likes:2},
-  {id:5, message: "Я поехал в налоговую за документами", likes:1},
-  {id:101,message: "Стоять, блять! Кто идет?", likes:0}
-];
+const maxLength10 = maxLength(10);
 
-let postsElements = postsData.map(e => {
-  return <Post message={e.message} likes={e.likes} />;
-})
+let AddMessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field name={'newPostText'} placeholder="Новый пост" component={TextArea} 
+        validate={[required, maxLength10]} />
+      </div>
+      <div>
+        {/* <button onClick={onAddPost}>Новый пост</button> */}
+        <button>Новый пост</button>
+      </div>
+    </form>
 
-const MyPosts = () => {
+  );
+}
+
+let AddMessageFormRedux = reduxForm({form: 'mypost'})(AddMessageForm);
+
+let MyPosts = (props) => {
+
+  //debugger;
+  let postsElements = props.posts.map(e => <Post message={e.message} likes={e.likes} key={e.id} />);
+
+  //let newPostElement = React.createRef();
+
+  // const onAddPost = () => {
+  //   props.addPost(); // из контейнерной компоненты MyPostsContainer
+  // };
+
+  // const onPostChange = () => {
+  //   let postText = newPostElement.current.value;
+  //   props.updateNewPostText(postText);
+
+  // };
+
+  const onSubmit = (formData) => {
+    props.addPost(formData.newPostText);
+  };
+
+
   return (
     <div className={s.postsBlock}>
       <div>
         <h3>Мои посты</h3>
-        <div>
-          <textarea></textarea>
+
+        {/* <div>
+          <textarea ref={newPostElement} placeholder="Новый пост" onChange={onPostChange} value={props.newPostText} />
         </div>
         <div>
-          <button>Новый пост</button>
-        </div>
+          <button onClick={onAddPost}>Новый пост</button>
+        </div> */}
+        <AddMessageFormRedux onSubmit={onSubmit}/>
       </div>
+
       <div className={s.posts}>
         {postsElements}
       </div>
