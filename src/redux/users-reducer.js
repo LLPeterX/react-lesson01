@@ -60,13 +60,15 @@ export const toggleIsFetching = (fetching) => ({ type: TOGGLE_FETCHING, isFetchi
 export const toggleFollowingInProgress = (isProgress, userId) => ({ type: TOGGLE_FOLLOWING_IN_PROGRESS, isProgress: isProgress, userId: userId });
 
 // thunks
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+//export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (page, pageSize) => (dispatch) => {  
   dispatch(toggleIsFetching(true));
-  usersAPI.getUsers(currentPage, pageSize)
+  usersAPI.getUsers(page, pageSize)
     .then(responce => {
       dispatch(setUsers(responce.items));
       dispatch(setTotalUsersCount(responce.totalCount));
       dispatch(toggleIsFetching(false));
+      dispatch(setCurrentPage(page));
     })
     .catch(error => {
       console.log("getUsers() error:");
