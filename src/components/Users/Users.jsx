@@ -24,13 +24,14 @@ class Users extends React.Component {
   }
   
   handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
+//    console.log(`active page is ${pageNumber}`);
     this.setState({activePage: pageNumber});
     this.props.onPageChanged(pageNumber);
   }
   render() {
     return (
       <div>
+        <div className={s.paginationContainer}>
         <div>Total users: {this.props.totalUsersCount}</div>
         {/* Paginator */}
         <Pagination
@@ -41,13 +42,13 @@ class Users extends React.Component {
           onChange={this.handlePageChange.bind(this)}
           nextPageText='>'
           prevPageText='<'
-          innerClass = {s.pagination}
           activeClass={s.selectedPage}
           itemClass={s.pagination_item}
           activeLinkClass = {s.pagination_item_link}
           linkClass = {s.pagination_item_link}
 
         />
+        </div>
         {/* <div className={s.pagesMenu}>
           {
 
