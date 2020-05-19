@@ -5,7 +5,7 @@ import Users from './Users';
 import Preloader from '../common/Preloader/Preloader.jsx';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
-import { getUsers, getPageSize,getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/UsersSelectors'
+import { getUsers, getPageSize,getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress} from '../../redux/UsersSelectors'
 //import * as userSelector from '../../redux/UsersSelectors'
 
 class UsersContainer extends React.Component {
@@ -13,7 +13,6 @@ class UsersContainer extends React.Component {
     this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
-  // onPageChaged() через стрелочную функцию, чтобы сохранить контекст this
   onPageChanged = (pageNumber) => {
     this.props.onPageChanged(pageNumber, this.props.pageSize);
   }
@@ -39,19 +38,9 @@ class UsersContainer extends React.Component {
   }
 }
 
-// let mapStateToProps = (state) => {
-//   return {
-//     users: state.usersPage.users,
-//     pageSize: state.usersPage.pageSize,
-//     totalUsersCount: state.usersPage.totalUsersCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     followingInProgress: state.usersPage.followingInProgress,
-//   };
-// }
-
 let mapStateToProps = (state) => {
   return {
+    // users: getUsers(state),
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),

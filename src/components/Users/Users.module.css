@@ -31,15 +31,20 @@
 
 }
 
-.paginator {
+.pagination {
 	display: inline;
 }
 
-.paginator_item{
+.pagination_item{
 	border: 1px solid black;
 	padding: 5px;
 	text-decoration: none;
 	list-style: none;
 	display: inline-block;
-	
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+.pagination_item_link {
+  text-decoration: none;
 }
