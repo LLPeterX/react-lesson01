@@ -25,22 +25,10 @@ let AddMessageForm = (props) => {
 
 let AddMessageFormRedux = reduxForm({form: 'mypost'})(AddMessageForm);
 
-let MyPosts = (props) => {
+let MyPosts = React.memo(props => {
 
   //debugger;
   let postsElements = props.posts.map(e => <Post message={e.message} likes={e.likes} key={e.id} />);
-
-  //let newPostElement = React.createRef();
-
-  // const onAddPost = () => {
-  //   props.addPost(); // из контейнерной компоненты MyPostsContainer
-  // };
-
-  // const onPostChange = () => {
-  //   let postText = newPostElement.current.value;
-  //   props.updateNewPostText(postText);
-
-  // };
 
   const onSubmit = (formData) => {
     props.addPost(formData.newPostText);
@@ -52,12 +40,6 @@ let MyPosts = (props) => {
       <div>
         <h3>Мои посты</h3>
 
-        {/* <div>
-          <textarea ref={newPostElement} placeholder="Новый пост" onChange={onPostChange} value={props.newPostText} />
-        </div>
-        <div>
-          <button onClick={onAddPost}>Новый пост</button>
-        </div> */}
         <AddMessageFormRedux onSubmit={onSubmit}/>
       </div>
 
@@ -66,6 +48,6 @@ let MyPosts = (props) => {
       </div>
     </div>
   );
-}
+});
 
 export default MyPosts;

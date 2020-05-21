@@ -32,23 +32,10 @@ const Dialogs = (props) => {
   let state = props.dialogsPage;
   let dialogElements = state.usersData.map(e => <DialogItem name={e.name} key={e.id} id={e.id} />); // список юзеров
   let messageElements = state.msgData.map(m => <Message message={m.message} key={m.id} />); // список нагих сообщений
-  //let newMessageBody = state.newMessageBody;
 
-  // let sendMessage = () => {
-  //   props.sendMessage();
-  // }
-
-  // let onMessageChange = (event) => {
-  //   var text = event.target.value;
-  //   props.updateNewMessage(text);
-  // }
-  console.log('Dialogs props:');
-  console.log(props);
   if (!props.isAuth) return <Redirect to='/login' />;
 
   let addMessage = (formData) => {
-    console.log(formData);
-//    props.updateNewMessage(formData.newMessageBody);
     props.sendMessage(formData.newMessageBody);
   }
 
@@ -61,15 +48,6 @@ const Dialogs = (props) => {
         {messageElements}
       </div>
 
-      {/* <div>
-        <div>
-          <textarea placeholder="Введите свое сообщение" value={newMessageBody}
-            onChange={onMessageChange}></textarea>
-        </div>
-        <div>
-          <button onClick={sendMessage}>Добавить сообщение</button>
-        </div>
-      </div> */}
       <DialogFormRedux onSubmit={addMessage}/>
 
     </div>

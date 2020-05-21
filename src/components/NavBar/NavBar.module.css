@@ -6,7 +6,6 @@
 
 .item {
   padding-bottom: 20px;
-  font-weight: bold;
 }
 
 .item a {
@@ -16,4 +15,5 @@
 
 .item a.activeLink {
   color: rgb(12, 10, 0);
+  font-weight: bold;
 }
