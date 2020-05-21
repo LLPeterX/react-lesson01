@@ -1,7 +1,7 @@
-// точку с запятой можно не ставить
-import { addPostActionCreator } from '../../../redux/profile-reducer';
+import { addPostActionCreator } from '../../../redux/profile-reducer'
 import MyPosts from './MyPosts'
-import {connect} from 'react-redux';
+import {connect} from 'react-redux'
+import {reset} from 'redux-form'
 
 let mapStateToProps = (state) => {
   return {
@@ -14,6 +14,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     addPost: (text) => {
       dispatch(addPostActionCreator(text));
+      dispatch(reset('mypost'));
     }
   }
 }

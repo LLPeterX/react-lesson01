@@ -3,6 +3,8 @@ import { sendMessageCreator } from '../../redux/dialogs-reducer';
 import {connect} from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { reset } from 'redux-form';
+
 
 // используем rect-redux
 let mapStateToProps = (state) => {
@@ -18,6 +20,7 @@ let mapDispatchToProps = (dispatch) => {
     // },
     sendMessage: (text) => {
       dispatch(sendMessageCreator(text));
+      dispatch(reset('dialogsForm'));
     }
   };
 }
