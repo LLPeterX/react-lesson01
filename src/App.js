@@ -5,16 +5,13 @@ import NavBar from './components/NavBar/NavBar';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from './components/Users/UsersContainer';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import LoginPage from './components/Login/Login';
-//import { getAuthUserData } from './redux/auth-reducer';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
-import { Provider } from 'react-redux';
-import store from './redux/redux-store';
 
 
 class App extends React.Component {
@@ -27,8 +24,6 @@ class App extends React.Component {
 
         if (!this.props.isIntialized) return <Preloader />
         return (
-            <BrowserRouter>
-                <Provider store={store}>
                     <div className="app-wrapper">
                         <HeaderContainer />
                         <NavBar />
@@ -40,8 +35,6 @@ class App extends React.Component {
 
                         </div>
                     </div>
-                </Provider>
-            </BrowserRouter>
         );
     }
 }

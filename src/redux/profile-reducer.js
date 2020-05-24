@@ -1,17 +1,17 @@
 import { profileAPI } from '../api/api';
 
-const ADD_POST = 'ADD-POST';
+const ADD_POST = 'lesson001/profile/ADD-POST';
 //const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
-const SET_USER_PROFILE = 'SET-USER-PROFILE';
-const SET_STATUS = 'SET-STATUS';
-const DELETE_POST='DELETE-POST'
+const SET_USER_PROFILE = 'lesson001/profile/SET-USER-PROFILE';
+const SET_STATUS = 'lesson001/profile/SET-STATUS';
+const DELETE_POST = 'lesson001/profile/DELETE-POST'
 
 let initialState = {
   postsData: [
     { id: 1, message: "Gotta to break free!", likes: 2 },
     { id: 2, message: "Пью пиво", likes: 20 }
   ],
-//  newPostText: '',
+  //  newPostText: '',
   profile: null,
   status: ''
 };
@@ -34,7 +34,7 @@ const profileReducer = (state = initialState, action) => {
     case SET_STATUS:
       return { ...state, status: action.status };
     case DELETE_POST:
-      return {...state, postsData: state.postsData.filter(e => e.id!==action.postId)};  
+      return { ...state, postsData: state.postsData.filter(e => e.id !== action.postId) };
     default:
       return state;
   }
@@ -46,40 +46,23 @@ export const setStatus = (status) => { return { type: SET_STATUS, status }; }
 export const deletePost = (postId) => { return { type: DELETE_POST, postId }; }
 
 //thunks
-export const getUserProfile = (userId) => (dispatch) => {
-  if (!userId) userId = "7773"; // Если профиль не указан, выдваем профиль текущего пользователя.
-  profileAPI.getProfile(userId)
-    .then(responce => {
-      dispatch(setUserProfile(responce.data));
-    })
-    .catch(error => {
-      console.log("getUserProfile error:");
-      console.log(error);
-    });
-}
-export const getStatus = (userId) => (dispatch) => {
-  if (!userId) userId = "7773";
-  profileAPI.getStatus(userId)
-    .then(responce => {
-      dispatch(setStatus(responce.data));
-    })
-    .catch(error => {
-      console.log("reducer getStatus() error:");
-      console.log(error);
-    });
+export const getUserProfile = (userId) => async (dispatch) => {
+  //if (!userId) userId = "7773"; // Если профиль не указан, выдваем профиль текущего пользователя.
+  let response = await profileAPI.getProfile(userId);
+  dispatch(setUserProfile(response.data));
 }
 
-export const updateStatus = (status) => (dispatch) => {
-  profileAPI.updateStatus(status)
-    .then(responce => {
-      if (responce.data.resultCode === 0) {
-        dispatch(setStatus(status));
-      }
-    })
-    .catch(error => {
-      console.log("reducer updateStatus() error:");
-      console.log(error);
-    });
+export const getStatus = (userId) => async (dispatch) => {
+  //if (!userId) userId = "7773";
+  let response = await profileAPI.getStatus(userId);
+  dispatch(setStatus(response.data));
+}
+
+export const updateStatus = (status) => async (dispatch) => {
+  let response = await profileAPI.updateStatus(status);
+  if (!response.data.resultCode) {
+    dispatch(setStatus(status));
+  }
 }
 
 export default profileReducer;

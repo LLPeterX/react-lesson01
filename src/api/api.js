@@ -16,6 +16,8 @@ export const usersAPI = {
       .then(response => { return response.data });
   },
   follow: (userId) => {
+    console.log("call api follow()");
+    
     return instance.post(`follow/${userId}`).then(response => { return response.data });
   },
   unfollow: (userId) => {

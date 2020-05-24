@@ -1,21 +1,3 @@
-.userPhoto {
-  width: 80px;
-}
-
-.userData {
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 8px;
-  
-}
-
-.selectedPage {
-  font-weight: bold;
-  font-size: 120%;
-  background-color: white;
-}
-
 .paginationContainer {
   width: 100%;
   /* border: 1px solid red; */
@@ -36,4 +18,10 @@
 
 .pagination_item_link {
   text-decoration: none;
+}
+
+.selectedPage {
+  font-weight: bold;
+  font-size: 120%;
+  background-color: white;
 }
