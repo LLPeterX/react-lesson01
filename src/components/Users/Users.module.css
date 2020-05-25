@@ -7,7 +7,7 @@
   border-radius: 5px;
   padding: 5px;
   margin: 8px;
-  
+  width: 300px;
 }
 
 .selectedPage {
@@ -36,4 +36,10 @@
 
 .pagination_item_link {
   text-decoration: none;
+}
+
+.usersList {
+  display: flex;
+  flex-flow: wrap;
+  /* border: 2px solid red; */
 }

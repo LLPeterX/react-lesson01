@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { follow, unfollow, toggleFollowingInProgress, requestUsers, onPageChanged } from '../../redux/users-reducer';
 import Users from './Users';
+//import UsersWithOwnPagination from './UsersWithOwnPagination'
 import Preloader from '../common/Preloader/Preloader.jsx';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';

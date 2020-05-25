@@ -7,7 +7,7 @@ class User extends React.Component {
 
   render() {
     return (
-      <div key={this.props.user.id}>
+      <div key={this.props.user.id} className={s.userData}>
         <span>
           <div>
             <NavLink to={"/profile/" + this.props.user.id}>
@@ -32,8 +32,10 @@ class User extends React.Component {
             <div>{this.props.user.status}</div>
           </span>
           <span>
-            <div>{"u.location.city"}</div>
-            <div>{"u.location.country"}</div>
+            {/* <div>{"u.location.city"}</div> */}
+            <div>{this.props.user.location && this.props.user.location.city }</div>
+            <div>{this.props.user.location && this.props.user.location.country }</div>
+            {/* <div>{"u.location.country"}</div> */}
           </span>
         </span>
       </div>
