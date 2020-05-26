@@ -2,6 +2,7 @@
   "name": "react-lesson-001",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./https://llpeterx.github.io/demoSocNet",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +45,7 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
+    "gh-pages": "^2.2.0",
     "react-test-renderer": "^16.13.1"
   }
 }
