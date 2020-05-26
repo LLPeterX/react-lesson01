@@ -1,0 +1,42 @@
+{
+  "files": {
+    "static/js/0.ce642f87.chunk.js": "/demoSocNet/static/js/0.ce642f87.chunk.js",
+    "static/js/0.ce642f87.chunk.js.map": "/demoSocNet/static/js/0.ce642f87.chunk.js.map",
+    "main.css": "/demoSocNet/static/css/main.f03df420.chunk.css",
+    "main.js": "/demoSocNet/static/js/main.96e7c352.chunk.js",
+    "main.js.map": "/demoSocNet/static/js/main.96e7c352.chunk.js.map",
+    "runtime-main.js": "/demoSocNet/static/js/runtime-main.7c5e9484.js",
+    "runtime-main.js.map": "/demoSocNet/static/js/runtime-main.7c5e9484.js.map",
+    "static/js/3.61c6574b.chunk.js": "/demoSocNet/static/js/3.61c6574b.chunk.js",
+    "static/js/3.61c6574b.chunk.js.map": "/demoSocNet/static/js/3.61c6574b.chunk.js.map",
+    "static/css/4.d54b8a05.chunk.css": "/demoSocNet/static/css/4.d54b8a05.chunk.css",
+    "static/js/4.9cab7892.chunk.js": "/demoSocNet/static/js/4.9cab7892.chunk.js",
+    "static/js/4.9cab7892.chunk.js.map": "/demoSocNet/static/js/4.9cab7892.chunk.js.map",
+    "static/css/5.72a193e6.chunk.css": "/demoSocNet/static/css/5.72a193e6.chunk.css",
+    "static/js/5.c7360625.chunk.js": "/demoSocNet/static/js/5.c7360625.chunk.js",
+    "static/js/5.c7360625.chunk.js.map": "/demoSocNet/static/js/5.c7360625.chunk.js.map",
+    "static/css/6.236ee19a.chunk.css": "/demoSocNet/static/css/6.236ee19a.chunk.css",
+    "static/js/6.cab8e6c1.chunk.js": "/demoSocNet/static/js/6.cab8e6c1.chunk.js",
+    "static/js/6.cab8e6c1.chunk.js.map": "/demoSocNet/static/js/6.cab8e6c1.chunk.js.map",
+    "static/css/7.2856c18b.chunk.css": "/demoSocNet/static/css/7.2856c18b.chunk.css",
+    "static/js/7.952a5989.chunk.js": "/demoSocNet/static/js/7.952a5989.chunk.js",
+    "static/js/7.952a5989.chunk.js.map": "/demoSocNet/static/js/7.952a5989.chunk.js.map",
+    "index.html": "/demoSocNet/index.html",
+    "precache-manifest.938f365a3c925e9a828099e40c1f45a8.js": "/demoSocNet/precache-manifest.938f365a3c925e9a828099e40c1f45a8.js",
+    "service-worker.js": "/demoSocNet/service-worker.js",
+    "static/css/4.d54b8a05.chunk.css.map": "/demoSocNet/static/css/4.d54b8a05.chunk.css.map",
+    "static/css/5.72a193e6.chunk.css.map": "/demoSocNet/static/css/5.72a193e6.chunk.css.map",
+    "static/css/6.236ee19a.chunk.css.map": "/demoSocNet/static/css/6.236ee19a.chunk.css.map",
+    "static/css/7.2856c18b.chunk.css.map": "/demoSocNet/static/css/7.2856c18b.chunk.css.map",
+    "static/css/main.f03df420.chunk.css.map": "/demoSocNet/static/css/main.f03df420.chunk.css.map",
+    "static/js/3.61c6574b.chunk.js.LICENSE.txt": "/demoSocNet/static/js/3.61c6574b.chunk.js.LICENSE.txt",
+    "static/js/5.c7360625.chunk.js.LICENSE.txt": "/demoSocNet/static/js/5.c7360625.chunk.js.LICENSE.txt",
+    "static/media/preloader.svg": "/demoSocNet/static/media/preloader.5ee8137e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7c5e9484.js",
+    "static/js/3.61c6574b.chunk.js",
+    "static/css/main.f03df420.chunk.css",
+    "static/js/main.96e7c352.chunk.js"
+  ]
+}
