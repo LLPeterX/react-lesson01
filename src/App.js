@@ -15,8 +15,8 @@ import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import { Provider } from 'react-redux';
-//import { BrowserRouter } from 'react-router-dom';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+//import { HashRouter } from 'react-router-dom';
 import store from './redux/redux-store';
 import withLazyLoading from './hoc/withLazyLoading'
 
@@ -61,34 +61,26 @@ let mapStateToProps = (state) => ({
 //export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
 let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
 
-// let SamuraiJSApp = (props) => {
-//     return (
-//         <BrowserRouter basename={process.env.PUBLIC_URL}>
-//             <Provider store={store}>
-//                 <AppContainer />
-//             </Provider>
-//         </BrowserRouter>
-//     )
-// }
+let SamuraiJSApp = (props) => {
+    //console.log('process.env.PUBLIC_URL='+process.env.PUBLIC_URL);
+    return (
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Provider store={store}>
+                <AppContainer />
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
 
 // let SamuraiJSApp = (props) => {
 //     return (
-//         <HashRouter basename={process.env.PUBLIC_URL}>
+//         <HashRouter>
 //             <Provider store={store}>
 //                 <AppContainer />
 //             </Provider>
 //         </HashRouter>
 //     )
 // }
-
-let SamuraiJSApp = (props) => {
-    return (
-        <HashRouter>
-            <Provider store={store}>
-                <AppContainer />
-            </Provider>
-        </HashRouter>
-    )
-}
 
 export default SamuraiJSApp;

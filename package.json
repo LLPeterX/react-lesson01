@@ -2,7 +2,7 @@
   "name": "react-lesson-001",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./https://llpeterx.github.io/demoSocNet",
+  "homepage": " https://llpeterx.github.io/react-lesson01",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

@@ -10,11 +10,15 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	border: 1px solid goldenrod;
+
 }
 
 .header__userInfo {
 	display: flex;
 	flex-direction: column;
+	/* border: 1px solid blue; */
+	padding: 10px;
 }
 
 .header__userInfo_userName {
@@ -22,16 +26,24 @@
 	font-weight: bold;
 }
 
+.header__userInfo_job {
+	font-size: 9pt;
+	font-style: italic;
+}
+
 .avatar {
 	width: 80px;
 }
 
 .contacts {
-	padding-top: 20px;
+	
 }
 
 .contacts__title {
 	font-weight: bold;
-	padding-top: 40px;
-
+	padding-top: 10pt;
+	padding-bottom: 5px;
+}
+.contacts__body {
+	padding-left: 20px;
 }

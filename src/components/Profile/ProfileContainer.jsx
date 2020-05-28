@@ -18,12 +18,10 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    //console.log('render Prfile');
-    
     return <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>;
 
   } // render()
-} // class ProfileContainer
+} // end class ProfileContainer
 
 let mapStateToProps = (state) => {
   return ({
