@@ -15,6 +15,11 @@ const ProfileInfo = (props) => {
     }
   }
 
+  const onSubmit = (formData) => {
+    console.log(formData);
+    setEditMode(false);
+  }
+
   if (!props.profile) {
     return <Preloader />
   }
@@ -30,7 +35,7 @@ const ProfileInfo = (props) => {
           {/* ------------------- аватар  ------------------------*/}
 
           {editMode ?
-            <ProfileEditForm profile={props.profile} /> :
+            <ProfileEditForm profile={props.profile} onSubmit={onSubmit}/> :
             <ProfileData profile={props.profile} isOwner={props.isOwner} activateEditMode={() => { setEditMode(true) }} />}
 
           <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
@@ -43,15 +48,16 @@ const ProfileInfo = (props) => {
 }
 
 const Contact = ({ title, value }) => {
-  return (<div><b>{title}: </b>{value}</div>)
+  return (<div>{title}:{value}</div>)
 }
 
 const ProfileData = ({ profile, isOwner, activateEditMode }) => {
   return (
     <div className={s.profileData}>
-      <div className={s.header__userInfo_userName}>  {profile.fullName}  </div>
-      <div className={s.header__userInfo_job}>Ищу работу: {profile.lookingForAJob ? 'Да' : 'Нет'}</div>
-      <div className={s.header__userInfo_job}>Интересы: {profile.lookingForAJobDescription}</div>
+      <div className={s.header__userInfo_userName}> {profile.fullName} </div>
+      <div className={s.header__userInfo_job}><b>Обо мне: </b>{profile.aboutMe}</div>
+      <div className={s.header__userInfo_job}><b>Ищу работу: </b>{profile.lookingForAJob ? 'Да' : 'Нет'}</div>
+      <div className={s.header__userInfo_job}><b>Профессиональные навыки: </b>{profile.lookingForAJobDescription}</div>
       <div className={s.contacts}>
         <div className={s.contacts__title}>Контакты</div>
         <div className={s.contacts__body}>

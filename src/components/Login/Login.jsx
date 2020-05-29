@@ -12,18 +12,6 @@ import formStyle from '../common/FormControls/FormControls.module.css';
 let LoginForm = ({handleSubmit, error}) => {
   return (
     <form onSubmit={handleSubmit}> 
-      {/* <div className={s.form_item}>
-        <Field name={"email"} type="text" placeholder={"Login"} component={Input}
-        validate={[required]}/>
-      </div>
-      <div className={s.form_item}>
-        <Field name={"password"} type="password" placeholder={"Password"} component={Input}
-        validate={[required]}/>
-      </div>
-            <div className={s.form_item}>
-        <Field name={"rememberMe"} type={"checkbox"} component={Input}/> Запомнить меня
-      </div>
- */}
       {createField("Email","email",[required],Input)}
       {createField("Пароль","password",[required],Input, {type: "password"})}
       {createField(null, "rememberMe", [], Input, {type: "checkbox"}, "Запомнить меня")}

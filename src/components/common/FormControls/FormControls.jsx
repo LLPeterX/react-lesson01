@@ -3,15 +3,6 @@ import styles from './FormControls.module.css'
 import {Field} from 'redux-form'
 
 export const TextArea = (props) => {
-  // const hasError = meta.error && meta.touched;
-  // return (
-  //   <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
-  //     <div>
-  //       <textarea {...input} {...props} />
-  //     </div>
-  //     {hasError && <span>{meta.error}</span>}
-  //   </div>
-  // )
   const {input, meta, ...restProps} = props;
   return <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
 }
