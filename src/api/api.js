@@ -48,6 +48,15 @@ export const profileAPI = {
   },
   updateStatus(status) {
     return instance.put(`profile/status`,{status});
+  },
+  savePhoto(file) {
+    // console.log('call API savePhoto');
+    // console.log(file);
+    let formData = new FormData();
+    formData.append('image',file);
+    let queryHeaders = { headers: { 'Content-Type': 'multipart/form-data'} };
+  
+    return instance.put('profile/photo', formData, queryHeaders);
   }
 }
 

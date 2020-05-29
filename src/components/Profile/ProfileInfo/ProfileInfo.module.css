@@ -27,8 +27,8 @@
 }
 
 .header__userInfo_job {
-	font-size: 9pt;
-	font-style: italic;
+	padding-left: 20px;
+	padding-top: 5px;
 }
 
 .avatar {
@@ -46,4 +46,8 @@
 }
 .contacts__body {
 	padding-left: 20px;
+}
+
+.profileData {
+	border: 1px solid blue;
 }
