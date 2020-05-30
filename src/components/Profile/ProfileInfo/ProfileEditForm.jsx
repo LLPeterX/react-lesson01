@@ -3,16 +3,16 @@ import s from './ProfileInfo.module.css'
 import { reduxForm } from 'redux-form';
 import { Input, TextArea, createField } from '../../common/FormControls/FormControls'
 
-const ProfileForm = ({ profile, handleSubmit }) => {
+const ProfileForm = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className={s.profileData}>
         <div className={s.editMode}>Режим редактирования</div>
         <div><b>Полное имя: </b>  {createField("Полное имя", "fullName", [], Input)}  </div>
         <div className={s.header__userInfo_job}>Обо мне: {createField("Краткая информация обо мне", "aboutMe", [], TextArea)}</div>
-        <div className={s.header__userInfo_job}>Ищу работу: {createField(null, "lookingForAJob", [], TextArea, { type: "checkbox" })}</div>
+        <div className={s.header__userInfo_job}>Ищу работу: {createField(null, "lookingForAJob", [], Input, { type: "checkbox" })}</div>
         <div className={s.header__userInfo_job}>Профессиональные знания:
-        {createField("Интересы", "lookingForAJobDescription", [], TextArea, null, profile.lookingForAJobDescription)}
+        {createField("Интересы", "lookingForAJobDescription", [], TextArea)}
         </div>
 
         {/* <div className={s.contacts}>

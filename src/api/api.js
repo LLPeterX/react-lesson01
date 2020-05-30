@@ -57,6 +57,9 @@ export const profileAPI = {
     let queryHeaders = { headers: { 'Content-Type': 'multipart/form-data'} };
   
     return instance.put('profile/photo', formData, queryHeaders);
+  },
+  saveProfile(profile) {
+    return instance.put('profile',profile);
   }
 }
 

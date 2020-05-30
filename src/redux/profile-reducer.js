@@ -54,7 +54,6 @@ export const getUserProfile = (userId) => async (dispatch) => {
 }
 
 export const getStatus = (userId) => async (dispatch) => {
-  //if (!userId) userId = "7773";
   let response = await profileAPI.getStatus(userId);
   dispatch(setStatus(response.data));
 }
@@ -73,6 +72,17 @@ export const savePhoto = (file) => async (dispatch) => {
   }
 }
 
+export const saveProfile = (profile) => async (dispatch) => {
+  debugger;
+  let response = await profileAPI.saveProfile(profile); 
+  if (!response.data.resultCode) {
+    //dispatch(savePhotoSuccess(response.data.data.photos)); // да, data.data
+    console.log('saveProfile success. data='+response.data);
+  } else {
+    console.log('error: '+response.data.messages);
+    
+  }
+}
 
 
 export default profileReducer;
