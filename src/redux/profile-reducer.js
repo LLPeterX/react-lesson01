@@ -72,12 +72,12 @@ export const savePhoto = (file) => async (dispatch) => {
   }
 }
 
-export const saveProfile = (profile) => async (dispatch) => {
-  debugger;
+export const saveProfile = (profile) => async (dispatch, getState) => {
   let response = await profileAPI.saveProfile(profile); 
   if (!response.data.resultCode) {
-    //dispatch(savePhotoSuccess(response.data.data.photos)); // да, data.data
-    console.log('saveProfile success. data='+response.data);
+    const userId = getState().auth.userId;
+    dispatch(getUserProfile(userId));
+    console.log('saveProfile success for id='+userId);
   } else {
     console.log('error: '+response.data.messages);
     
