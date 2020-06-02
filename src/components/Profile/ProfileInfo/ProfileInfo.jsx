@@ -20,9 +20,8 @@ const ProfileInfo = (props) => {
     //setEditMode(false);
   }
 
-  if (!props.profile) {
-    return <Preloader />
-  }
+  if (!props.profile) { return <Preloader /> }
+  
   return (
     <div className={s.container}>
       <div className={s.header}>
@@ -47,8 +46,23 @@ const ProfileInfo = (props) => {
   );
 }
 
+const showTextAsURL = (url) => {
+  return (<a href={url}>{url}</a>);
+}
+const beautifyURL = (url)  => {
+  // если значение начинается с "http", "https", то заключить в тег <a href>url</a>
+  if(!url) return "";
+  if(url.startsWith("http://") || url.startsWith("https://")) {
+    return showTextAsURL(url);
+  }
+  if(url.startsWith("www")) {
+    return showTextAsURL("http://"+url);
+  }
+  return url;
+}
+
 const Contact = ({ title, value }) => {
-  return (<div>{title}:{value}</div>)
+  return (<div>{title}:{beautifyURL(value)}</div>)
 }
 
 const ProfileData = ({ profile, isOwner, activateEditMode }) => {
