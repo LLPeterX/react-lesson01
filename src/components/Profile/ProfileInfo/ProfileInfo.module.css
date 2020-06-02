@@ -36,10 +36,6 @@
 	width: 80px;
 }
 
-.contacts {
-	
-}
-
 .contacts__title {
 	font-weight: bold;
 	padding-top: 10pt;
@@ -48,12 +44,22 @@
 .contacts__body {
 	padding-left: 20px;
 }
+.contacts__body_edit {
+	padding-left: 20px;
+	display: inline-block;
+}
 
 .profileData {
 	border: 1px solid blue;
 }
 
-.editMode {
+.error {
+	border: 2px solid red;
+	background-color: white;
 	color: red;
-	font-style: italic;
+	padding: 10px;
+}
+
+.errorField {
+	border: 2px solid red;
 }

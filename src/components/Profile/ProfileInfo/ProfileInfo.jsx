@@ -15,10 +15,9 @@ const ProfileInfo = (props) => {
     }
   }
 
-  const onSubmit = (formData) => {
-    console.log(formData);
-    props.saveProfile(formData);
-    setEditMode(false);
+  const onSubmit =  (formData) => {
+    props.saveProfile(formData).then(() => {setEditMode(false);});
+    //setEditMode(false);
   }
 
   if (!props.profile) {
@@ -36,7 +35,7 @@ const ProfileInfo = (props) => {
           {/* ------------------- аватар  ------------------------*/}
 
           {editMode ?
-            <ProfileEditForm initialValues={props.profile} onSubmit={onSubmit}/> :
+            <ProfileEditForm initialValues={props.profile} profile={props.profile} onSubmit={onSubmit} /> :
             <ProfileData profile={props.profile} isOwner={props.isOwner} activateEditMode={() => { setEditMode(true) }} />}
 
           <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />

@@ -29,6 +29,6 @@ const FormControl = ({ input, meta, ...props }) => {
 // Универсальное поле ввода
 // в props можно указать тип поля, напр. {type: "password"}
 export const createField = (placeholder, name, validators, component, props={}, text="") => (
-  <div><Field name={name} type="text" placeholder={placeholder} component={component}
+  <div><Field name={name} id={name} type="text" placeholder={placeholder} component={component}
   validate={validators} {...props}/>{text}</div>
 )

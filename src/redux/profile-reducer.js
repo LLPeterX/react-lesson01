@@ -1,4 +1,5 @@
 import { profileAPI } from '../api/api';
+import { stopSubmit } from 'redux-form';
 
 const ADD_POST = 'lesson001/profile/ADD-POST';
 const SET_USER_PROFILE = 'lesson001/profile/SET-USER-PROFILE';
@@ -11,7 +12,6 @@ let initialState = {
     { id: 1, message: "Gotta to break free!", likes: 2 },
     { id: 2, message: "Пью пиво", likes: 20 }
   ],
-  //  newPostText: '',
   profile: null,
   status: ''
 };
@@ -20,7 +20,6 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST:
       let lastPost = state.postsData.reduce((acc, curr) => acc.id > curr.id ? acc : curr);
       let nextId = lastPost.id + 1;
-      //let postText = `${state.newPostText} (id=${nextId})`;
       let postText = action.newPostText;
       let newPost = { id: nextId, message: postText, likes: 0 };
       return {
@@ -34,13 +33,12 @@ const profileReducer = (state = initialState, action) => {
     case DELETE_POST:
       return { ...state, postsData: state.postsData.filter(e => e.id !== action.postId) };
     case SAVE_PHOTO_SUCCESS:
-      return {...state, profile: {...state.profile, photos: action.photos}}  
+      return { ...state, profile: { ...state.profile, photos: action.photos } }
     default:
       return state;
   }
 }
 export const addPostActionCreator = (text) => ({ type: ADD_POST, newPostText: text });
-//export const updateNewPostTextActionCreator = (text) => { return { type: UPDATE_POST_TEXT, newPostText: text }; }
 export const setUserProfile = (profile) => { return { type: SET_USER_PROFILE, profile: profile }; }
 export const setStatus = (status) => { return { type: SET_STATUS, status }; }
 export const deletePost = (postId) => { return { type: DELETE_POST, postId }; }
@@ -72,15 +70,30 @@ export const savePhoto = (file) => async (dispatch) => {
   }
 }
 
+// const getIvalidField = (errorMessage) => {
+//   if (errorMessage) {
+//     //debugger;
+//     // eslint-disable-next-line
+//     //const matches = errorMessage.match('error\\: Invalid url format \\(Contacts->(.+)\\)');
+//     //return matches && matches[1].toLowerCase();
+//     return errorMessage.slice(errorMessage.indexOf(">")+1, errorMessage.indexOf(')').toLowerCase();
+//   } else {
+//     return null;
+//   }
+// }
+
 export const saveProfile = (profile) => async (dispatch, getState) => {
-  let response = await profileAPI.saveProfile(profile); 
+  let response = await profileAPI.saveProfile(profile);
   if (!response.data.resultCode) {
     const userId = getState().auth.userId;
     dispatch(getUserProfile(userId));
-    console.log('saveProfile success for id='+userId);
+    console.log('saveProfile success for id=' + userId);
   } else {
-    console.log('error: '+response.data.messages);
-    
+    let errorMessage = response.data.messages[0];
+    const invalidFieldName = errorMessage.slice(errorMessage.indexOf(">")+1, errorMessage.indexOf(')')).toLowerCase();
+    console.log('error: ' + response.data.messages+', field='+invalidFieldName);
+    dispatch(stopSubmit('profile-edit', { _error: { fieldName: 'contacts.'+invalidFieldName, message: response.data.messages[0] } }));
+    return Promise.reject(errorMessage);
   }
 }
 
