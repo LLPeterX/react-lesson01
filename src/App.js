@@ -3,13 +3,8 @@ import './App.css';
 import HeaderContainer from './components/Header/HeaderContainer';
 import NavBar from './components/NavBar/NavBar';
 
-//import ProfileContainer from "./components/Profile/ProfileContainer";
-// import DialogsContainer from "./components/Dialogs/DialogsContainer";
-// import UsersContainer from './components/Users/UsersContainer';
-
 import { Route } from 'react-router-dom';
-import { withRouter } from 'react-router';
-//import LoginPage from './components/Login/Login';
+import { withRouter, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer';
@@ -43,11 +38,14 @@ class App extends React.Component {
                             <ProfileContainer />
                         </Suspense>
                     } /> */}
-                    <Route path="/profile/:userId?" render={withLazyLoading(ProfileContainer)} />
-                    <Route path="/dialogs" render={withLazyLoading(DialogsContainer)} />
-                    <Route path="/users" render={withLazyLoading(UsersContainer)} />
-                    <Route path="/login" render={withLazyLoading(LoginPage)} />
-
+                    <Switch>
+                        <Route path="/profile/:userId?" render={withLazyLoading(ProfileContainer)} />
+                        <Route path="/dialogs" render={withLazyLoading(DialogsContainer)} />
+                        <Route path="/users" render={withLazyLoading(UsersContainer)} />
+                        <Route path="/login" render={withLazyLoading(LoginPage)} />
+                        <Route path="/" render={() => <Redirect to="/profile"/>} />
+                        <Route path="*" render={() => <div>404 not found</div>} />
+                    </Switch>
                 </div>
             </div>
         );
@@ -58,11 +56,9 @@ let mapStateToProps = (state) => ({
     isIntialized: state.app.isIntialized
 });
 
-//export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
 let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
 
 let SamuraiJSApp = (props) => {
-    //console.log('process.env.PUBLIC_URL='+process.env.PUBLIC_URL);
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>

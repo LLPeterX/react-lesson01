@@ -1,25 +1,17 @@
 import React from 'react';
 import s from './NavBar.module.css';
 import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
 
 const NavBar = (props) => {
   
-  // ниже плохо работает. Не видит props.menu
-  //debugger;
-  //let navItems = props.menu.map(e => {
-  //   return (
-  //     <div className={s.item} key={e.key}>
-  //       <NavLink to={e.link}>{e.name}</NavLink>
-  //     </div>);
-  // });
-
-
   return (
     <nav className={s.nav}>
       <div className={s.item}>
         <NavLink to="/profile" activeClassName={s.activeLink}>Профиль</NavLink>
       </div>
-      <div className={`${s.item} ${s.active}`}>
+      {/* <div className={`${s.item} ${s.active}`}> */}
+      <div className={classNames(s.item, {[s.active]: true})}>
         <NavLink to="/dialogs" activeClassName={s.activeLink}>Сообщения</NavLink>
       </div>
       <div className={s.item}>
@@ -30,9 +22,6 @@ const NavBar = (props) => {
       <div className={s.item}><a href="/">Музыка</a></div>
       <div className={s.item}><a href="/">Настройки</a></div>
     </nav>
-    // <nav className={s.nav}>
-    //   {navItems}
-    // </nav>
   );
 }
 
