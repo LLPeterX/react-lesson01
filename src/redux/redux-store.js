@@ -8,18 +8,19 @@ import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 import appReducer from './app-reducer';
 
-// собираем все базове компоненты в один объект
+// собираем все базовые редюсеры в один объект (в т.ч. объединяем все state)
 let reducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sideBar: sidebarReducer, 
   usersPage: usersReducer,
   auth: authReducer,
-  form: formReducer,
+  form: formReducer, // из lib 'redux-form'
   app: appReducer
 });
+
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-window.store = store; // верменный глобальный объект
+window.store = store; // врeменный глобальный объект для отладки
 
 export default store;

@@ -57,9 +57,14 @@ export const getStatus = (userId) => async (dispatch) => {
 }
 
 export const updateStatus = (status) => async (dispatch) => {
-  let response = await profileAPI.updateStatus(status);
-  if (!response.data.resultCode) { // if success, resultCode=0
-    dispatch(setStatus(status));
+  try {
+    let response = await profileAPI.updateStatus(status);
+    if (!response.data.resultCode) { // if success, resultCode=0
+      dispatch(setStatus(status));
+    }
+  } catch(error) {
+    alert('Some error occured');
+    //debugger;
   }
 }
 
@@ -70,18 +75,6 @@ export const savePhoto = (file) => async (dispatch) => {
   }
 }
 
-// const getIvalidField = (errorMessage) => {
-//   if (errorMessage) {
-//     //debugger;
-//     // eslint-disable-next-line
-//     //const matches = errorMessage.match('error\\: Invalid url format \\(Contacts->(.+)\\)');
-//     //return matches && matches[1].toLowerCase();
-//     return errorMessage.slice(errorMessage.indexOf(">")+1, errorMessage.indexOf(')').toLowerCase();
-//   } else {
-//     return null;
-//   }
-// }
-
 export const saveProfile = (profile) => async (dispatch, getState) => {
   let response = await profileAPI.saveProfile(profile);
   if (!response.data.resultCode) {
@@ -90,9 +83,9 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     console.log('saveProfile success for id=' + userId);
   } else {
     let errorMessage = response.data.messages[0];
-    const invalidFieldName = errorMessage.slice(errorMessage.indexOf(">")+1, errorMessage.indexOf(')')).toLowerCase();
-    console.log('error: ' + response.data.messages+', field='+invalidFieldName);
-    dispatch(stopSubmit('profile-edit', { _error: { fieldName: 'contacts.'+invalidFieldName, message: response.data.messages[0] } }));
+    const invalidFieldName = errorMessage.slice(errorMessage.indexOf(">") + 1, errorMessage.indexOf(')')).toLowerCase();
+    console.log('error: ' + response.data.messages + ', field=' + invalidFieldName);
+    dispatch(stopSubmit('profile-edit', { _error: { fieldName: 'contacts.' + invalidFieldName, message: response.data.messages[0] } }));
     return Promise.reject(errorMessage);
   }
 }

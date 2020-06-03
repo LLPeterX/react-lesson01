@@ -15,13 +15,13 @@ const ProfileInfo = (props) => {
     }
   }
 
-  const onSubmit =  (formData) => {
-    props.saveProfile(formData).then(() => {setEditMode(false);});
+  const onSubmit = (formData) => {
+    props.saveProfile(formData).then(() => { setEditMode(false); });
     //setEditMode(false);
   }
 
   if (!props.profile) { return <Preloader /> }
-  
+
   return (
     <div className={s.container}>
       <div className={s.header}>
@@ -49,20 +49,22 @@ const ProfileInfo = (props) => {
 const showTextAsURL = (url) => {
   return (<a href={url}>{url}</a>);
 }
-const beautifyURL = (url)  => {
+const beautifyURL = (url) => {
   // если значение начинается с "http", "https", то заключить в тег <a href>url</a>
-  if(!url) return "";
-  if(url.startsWith("http://") || url.startsWith("https://")) {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) {
     return showTextAsURL(url);
   }
-  if(url.startsWith("www")) {
-    return showTextAsURL("http://"+url);
+  if (url.startsWith("www")) {
+    return showTextAsURL("http://" + url);
   }
   return url;
 }
 
 const Contact = ({ title, value }) => {
-  return (<div>{title}:{beautifyURL(value)}</div>)
+  return (
+      <div>{title} : {beautifyURL(value)}</div>
+  )
 }
 
 const ProfileData = ({ profile, isOwner, activateEditMode }) => {
@@ -76,7 +78,7 @@ const ProfileData = ({ profile, isOwner, activateEditMode }) => {
         <div className={s.contacts__title}>Контакты</div>
         <div className={s.contacts__body}>
           {Object.keys(profile.contacts).map(key => {
-            return <Contact title={key} value={profile.contacts[key]} key={key} />
+            return profile.contacts[key] && <Contact title={key} value={profile.contacts[key]} key={key} />
           })
           }
         </div>
@@ -87,18 +89,5 @@ const ProfileData = ({ profile, isOwner, activateEditMode }) => {
     </div>
   );
 }
-
-// const ProfileEditForm = ({ profile }) => {
-//   return (
-//     <div className={s.profileData}>
-//       <div>Режим редактирования</div>
-//       <div className={s.header__userInfo_userName}>  {profile.fullName}  </div>
-//       <div className={s.header__userInfo_job}>Ищу работу: {profile.lookingForAJob ? 'Да' : 'Нет'}</div>
-//       <div className={s.header__userInfo_job}>Интересы: {profile.lookingForAJobDescription}</div>
-
-//     </div>
-//   );
-// }
-
 
 export default ProfileInfo;

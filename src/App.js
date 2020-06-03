@@ -22,9 +22,21 @@ const LoginPage = React.lazy(() => import('./components/Login/Login'));
 
 class App extends React.Component {
 
+    // arrow func - чтобы сохранился контекст this
+    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+        // alert('Error occured: '+promiseRejectionEvent.reason);
+        console.error(promiseRejectionEvent);
+    }
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection");
+    }
+
     render() {
 
         if (!this.props.isIntialized) return <Preloader />
@@ -33,11 +45,6 @@ class App extends React.Component {
                 <HeaderContainer />
                 <NavBar />
                 <div className="app-wrapper-content">
-                    {/* <Route path="/profile/:userId?" render={() =>
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <ProfileContainer />
-                        </Suspense>
-                    } /> */}
                     <Switch>
                         <Route path="/profile/:userId?" render={withLazyLoading(ProfileContainer)} />
                         <Route path="/dialogs" render={withLazyLoading(DialogsContainer)} />

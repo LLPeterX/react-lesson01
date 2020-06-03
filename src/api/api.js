@@ -16,8 +16,6 @@ export const usersAPI = {
       .then(response => { return response.data });
   },
   follow: (userId) => {
-    console.log("call api follow()");
-    
     return instance.post(`follow/${userId}`).then(response => { return response.data });
   },
   unfollow: (userId) => {
@@ -29,9 +27,10 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-  me() {  return instance.get('/auth/me'); },
+  me() {
+    return instance.get('/auth/me'); 
+   },
   login(email, password,rememberMe=false, captcha=false) {
-    //console.log('Call authAPI.login with '+email+' '+password);
     return instance.post('/auth/login',{email, password,rememberMe, captcha})
   },
   logout() {
@@ -50,8 +49,6 @@ export const profileAPI = {
     return instance.put(`profile/status`,{status});
   },
   savePhoto(file) {
-    // console.log('call API savePhoto');
-    // console.log(file);
     let formData = new FormData();
     formData.append('image',file);
     let queryHeaders = { headers: { 'Content-Type': 'multipart/form-data'} };
