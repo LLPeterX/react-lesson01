@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 import { withRouter, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { initializeApp } from './redux/app-reducer';
+import { initializeApp } from './redux/app-reducer.ts';
 import Preloader from './components/common/Preloader/Preloader';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

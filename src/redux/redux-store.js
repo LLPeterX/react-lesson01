@@ -6,7 +6,7 @@ import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
 import thunkMiddleware from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
-import appReducer from './app-reducer';
+import appReducer from './app-reducer.ts';
 
 // собираем все базовые редюсеры в один объект (в т.ч. объединяем все state)
 let reducers = combineReducers({
