@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.css';
-import volk from '../../assets/images/wolk.jpg';
+import volk from '../../assets/images/pirat.png';
 import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
@@ -8,7 +8,7 @@ const Header = (props) => {
     <header className={s.header}>
       <div className={s.header__logotype}>
         <img src={volk} alt="Logo" className={s.logo} />
-        <div className={s.title}>Моя соцыальная сеть</div>
+        <div className={s.title}>-= Одноглазники =-</div>
       </div>
       <div className={s.loginBlock}>
         {/* В зависимости от значения isAuth отоюражаем либо имя пользователя, либо "Вход" */}
