@@ -2,8 +2,16 @@ import React from 'react';
 import s from './Users.module.css';
 import defaultAvatar from '../../assets/images/empty-avatar-png-18.png';
 import { NavLink } from 'react-router-dom';
+import { UserType } from '../../types/types';
 
-class User extends React.Component {
+type PropsType = {
+  user: UserType
+  followingInProgress: Array<number>
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
+}
+
+class User extends React.Component<PropsType> {
 
   render() {
     return (
@@ -12,7 +20,6 @@ class User extends React.Component {
           <div>
             <NavLink to={"/profile/" + this.props.user.id}>
               <img src={this.props.user.photos.small ? this.props.user.photos.small : defaultAvatar} alt="" className={s.userPhoto} />
-              {/* <img src={defaultAvatar} alt="" className={s.userPhoto} /> */}
             </NavLink>
           </div>
           <div>
@@ -30,12 +37,6 @@ class User extends React.Component {
           <span>
             <div>{this.props.user.id} : {this.props.user.name} </div>
             <div>{this.props.user.status}</div>
-          </span>
-          <span>
-            {/* <div>{"u.location.city"}</div> */}
-            <div>{this.props.user.location && this.props.user.location.city }</div>
-            <div>{this.props.user.location && this.props.user.location.country }</div>
-            {/* <div>{"u.location.country"}</div> */}
           </span>
         </span>
       </div>

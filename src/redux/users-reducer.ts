@@ -101,6 +101,7 @@ export const toggleIsFetching = (fetching: boolean):ToggleIsFetchingActionType =
 export const toggleFollowingInProgress = (isProgress:boolean, userId:number):ToggleFollowingActionType => ({ type: TOGGLE_FOLLOWING_IN_PROGRESS, isProgress: isProgress, userId: userId });
 
 // thunks
+//type RequestUsersDispatchType = SetUsersActionType | SetToatlUsersCountActionType | SetToatlUsersCountActionType | ToggleIsFetchingActionType | SetCurrentPageActionType;
 
 export const requestUsers = (pageNumber:number, pageSize:number) => async (dispatch:any) => {
   dispatch(toggleIsFetching(true));
