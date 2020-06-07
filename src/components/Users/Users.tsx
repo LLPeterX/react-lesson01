@@ -1,19 +1,33 @@
 import React from 'react';
 import Pagination from "react-js-pagination";
-//import Paginator from '../common/Paginator';
 import User from './User';
 import s from './Users.module.css'
-//import ReactPaginate from 'react-paginate';
-// нихуя не получается с ReactPaginate!
+import { UserType } from '../../types/types';
 
-class Users extends React.Component {
+type LocalStateType = {
+  activePage: number
+}
 
-  constructor(props) {
+type PropsType = {
+  totalUsersCount: number
+  pageSize: number
+  currentPage: number
+  onPageChanged: (pageNumber: number) => void
+  users: Array<UserType>
+  follow: (userId:number) => void
+  unfollow: (userId:number) => void
+  followingInProgress: Array<number>
+}
+
+class Users extends React.Component<PropsType,LocalStateType> {
+  pagesCount: number;
+
+  constructor(props:PropsType) {
     super(props);
     this.pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-    this.pages = [];
-    let maxVisiblePages = this.pagesCount > 20 ? 20 : this.pagesCount;
-    for (let i = 1; i <= maxVisiblePages; i++) { this.pages.push(i); } // формируем массив [1,2,3,... pagesCount] - это номера страниц
+    //this.pages = [];
+    //let maxVisiblePages = this.pagesCount > 20 ? 20 : this.pagesCount;
+    //for (let i = 1; i <= maxVisiblePages; i++) { this.pages.push(i); } // формируем массив [1,2,3,... pagesCount] - это номера страниц
     // local state for Pagination
     this.state = {
       activePage: this.props.currentPage
@@ -21,7 +35,7 @@ class Users extends React.Component {
   }
 
 
-  handlePageChange(pageNumber) {
+  handlePageChange(pageNumber:number) {
     this.setState({ activePage: pageNumber });
     this.props.onPageChanged(pageNumber);
   }
