@@ -34,34 +34,26 @@ type MapDispatchToPropsType = {
   onPageChanged: (pageNumber: number, pageSize: number) => void
 }
 
+// OwnPropsType нигде не используется; для примера
 type OwnPropsType = {
   title?: string
 }
-
-// type PropsType = {
-//   currentPage: number
-//   pageSize: number
-//   requestUsers: (currentPage:number, pageSize:number) => void
-//   onPageChanged: (pageNumber: number, pageSize:number) => void
-//   isFetching: boolean
-//   totalUsersCount: number
-//   users: Array<UserType>
-//   follow: (userId:number) => void
-//   unfollow: (userId:number) => void
-//   followingInProgress: Array<number>
-// }
+// кумулятивный тип для props класса. Тип состоит из двух других типов
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 class UsersContainer extends React.Component<PropsType> {
+  // после загрузки компоненты инициализируем значения тек. страницы и размера страницы из пропсов
   componentDidMount() {
     const { currentPage, pageSize } = this.props;
     this.props.requestUsers(currentPage, pageSize);
   }
 
+  // при изменении N страницы из Pginator'а отправляем команду наверх для получения новой порции юзеров
   onPageChanged = (pageNumber: number) => {
     this.props.onPageChanged(pageNumber, this.props.pageSize);
   }
 
+  // ниже отображение списка пользователй. Пока он грузится (isGetching), показываем Preloader
   render() {
     return (
       <>
@@ -75,7 +67,6 @@ class UsersContainer extends React.Component<PropsType> {
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             followingInProgress={this.props.followingInProgress}
-
           />
         }
       </>
@@ -83,6 +74,7 @@ class UsersContainer extends React.Component<PropsType> {
   }
 }
 
+// функции ниже (getUsers, getPageSize и пр.) - из UsersSelectors. Они потом помогут в фильтрации пользователей
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
     users: getUsers(state),
@@ -95,7 +87,10 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   };
 }
 
-  export default compose(
+// Формируем мега-компоненту-обёртку над нашей. 
+// С помощбю withAuthRedirect проверяем залогиненность
+// если ОК, то делаем connect(), формируем пропсы и вызываем рендер компоненты.
+export default compose(
       connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps,
               { follow, unfollow,  toggleFollowingInProgress,  requestUsers, onPageChanged })
   ,withAuthRedirect)(UsersContainer);

@@ -4,10 +4,14 @@ import User from './User';
 import s from './Users.module.css'
 import { UserType } from '../../types/types';
 
+// Компонента для отображения списка пользователей
+
+// Тип локального стейта
 type LocalStateType = {
   activePage: number
 }
 
+// тип для пропсов
 type PropsType = {
   totalUsersCount: number
   pageSize: number
@@ -20,25 +24,25 @@ type PropsType = {
 }
 
 class Users extends React.Component<PropsType,LocalStateType> {
-  pagesCount: number;
+  pagesCount: number; // число страниц списка юзеров
 
   constructor(props:PropsType) {
     super(props);
     this.pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-    //this.pages = [];
-    //let maxVisiblePages = this.pagesCount > 20 ? 20 : this.pagesCount;
-    //for (let i = 1; i <= maxVisiblePages; i++) { this.pages.push(i); } // формируем массив [1,2,3,... pagesCount] - это номера страниц
-    // local state for Pagination
+    // локальный стейт
     this.state = {
       activePage: this.props.currentPage
     };
   }
 
 
+  // обработка выбора новой страницы. В лок.стейте запоминаем её номер и отправляем команду наверх
+  // получить новую порцию юзеров.
   handlePageChange(pageNumber:number) {
     this.setState({ activePage: pageNumber });
     this.props.onPageChanged(pageNumber);
   }
+  // здест используется сторонний Paginator
   render() {
     return (
       <div>
@@ -57,18 +61,22 @@ class Users extends React.Component<PropsType,LocalStateType> {
             linkClass={s.pagination_item_link}
           />
         </div>
+        {/* на странице 9 (pageSize) блоков <User>  - 3 x 3*/}
         <div className={s.usersList}>
           {
             this.props.users.map(u =>
-              <User user={u} followingInProgress={this.props.followingInProgress}
-                follow={this.props.follow} unfollow={this.props.unfollow}
-                key={u.id} />
+              <User key={u.id}
+                 user={u} 
+                 followingInProgress={this.props.followingInProgress}
+                 follow={this.props.follow} 
+                 unfollow={this.props.unfollow}
+              />
             )
           }
         </div>
       </div>
     ); // return
-  }
+  } // render()
 
 }
 
