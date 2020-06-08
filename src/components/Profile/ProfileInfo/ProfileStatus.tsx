@@ -1,25 +1,36 @@
 import React from 'react';
 
-class ProfileStatus extends React.Component {
+type PropsType = {
+  status: string
+  updateStatus: (status: string) => void
+}
+
+type LocalStateType = {
+  editMode: boolean
+  status: string
+}
+
+class ProfileStatus extends React.Component<PropsType, LocalStateType> {
   // local state
   state = {
     editMode: false,
     status: this.props.status // начальное значение берём из props
   }
-  activateEditMode = () => {
+  // methods
+  activateEditMode = ():void => {
     this.setState({ editMode: true });
   }
 
-  deactivateEditMode = () => {
+  deactivateEditMode = ():void => {
     this.setState({ editMode: false });
     this.props.updateStatus(this.state.status);
   }
 
-  onStatusChange = (event) => {
+  onStatusChange = (event: React.FormEvent<HTMLInputElement>):void => {
     this.setState({ status: event.currentTarget.value });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps:PropsType, prevState:LocalStateType) {
     if (prevProps.status !== this.props.status) {
       this.setState({ status: this.props.status });
     }
