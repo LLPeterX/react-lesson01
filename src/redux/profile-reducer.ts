@@ -108,7 +108,7 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
 export const savePhoto = (file: string) => async (dispatch: any) => {
   let response = await profileAPI.savePhoto(file); // не file.name, а сам объект 
   if (!response.data.resultCode) {
-    dispatch(savePhotoSuccess(response.data.data.photos)); // да, data.data
+    dispatch(savePhotoSuccess(response.data.data)); // да, data.data
   }
 }
 

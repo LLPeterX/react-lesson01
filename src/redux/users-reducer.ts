@@ -1,7 +1,7 @@
 
 import { usersAPI } from '../api/api'
 import { updateObjectInArray } from '../utils/object-helper'
-import { UserType } from '../types/types'
+import { UserType, ResultCodeEnum } from '../types/types'
 import { AppStateType } from './redux-store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -128,10 +128,9 @@ export const onPageChanged = (pageNumber: number, pageSize: number):ThunkType =>
     dispatch(setUsers(response.items));
   }
 
-// Внутренняя функция, с _
-// Вынос сюда общего кода из follow() и unfollow()
+// Вынос сюда общего кода из follow() и unfollow(). Внутренний тип, посему с подчеркиванием
 type FollowUnfollowActionType =  FollowSuccessActionType | UnfollowSuccessActionType;
-// FUCType - алиас на тип функции, которая возвращает либо FollowSuccessActionType, либо UnfollowSuccessActionType
+// FUCType - алиас на тип функции action creator, которая возвращает либо FollowSuccessActionType, либо UnfollowSuccessActionType
 type FUCType = (userId:number) => FollowUnfollowActionType;
 // тип возвращаемого значения
 
@@ -145,7 +144,7 @@ type FUCType = (userId:number) => FollowUnfollowActionType;
 const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: FUCType) => {
   dispatch(toggleFollowingInProgress(true, userId));
   let response = await apiMethod(userId);
-  if (response.resultCode === 0) { 
+  if (response.resultCode === ResultCodeEnum.SUCCESS) { 
     dispatch(actionCreator(userId));
   }
   dispatch(toggleFollowingInProgress(false, userId));

@@ -29,3 +29,9 @@ export type UserType = {
   photos: PhotosType
   followed: boolean
  }
+
+ export enum ResultCodeEnum {
+  SUCCESS=0,
+  ERROR=1,
+  CAPTCHA_REQUIRED=10
+}

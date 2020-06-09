@@ -1,6 +1,6 @@
 import { stopSubmit } from 'redux-form';
 import { authAPI, securityAPI } from '../api/api';
-
+import {ResultCodeEnum} from '../types/types'
 
 const SET_USER_DATA = 'lesson001/auth/SET-USER-DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'lesson001/GET-CAPTCHA-URL';
@@ -59,7 +59,7 @@ export const setCaptchaUrlSuccess = (captchaUrl:string):GetCaptchaUrlSuccessActi
 
 export const getAuthUserData = () => async (dispatch:any) => {
   let response = await authAPI.me();
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodeEnum.SUCCESS) {
     let { id, login, email } = response.data.data;
     dispatch(setAuthUserData(id, email, login, true));
   } else {
@@ -70,10 +70,10 @@ export const getAuthUserData = () => async (dispatch:any) => {
 export const login = (email:string, password:string, rememberMe:boolean, captcha:string) => async (dispatch:any) => {
   let response = await authAPI.login(email, password, rememberMe, captcha);
   switch (response.data.resultCode) {
-    case 0: // login success
+    case ResultCodeEnum.SUCCESS: // login success
       dispatch(getAuthUserData());
       break;
-    case 10: // captcha required
+    case ResultCodeEnum.CAPTCHA_REQUIRED: // captcha required
       dispatch(getCaptchaUrl());
       break;
     default:
@@ -85,7 +85,7 @@ export const login = (email:string, password:string, rememberMe:boolean, captcha
 
 export const logout = () => async (dispatch:any) => {
   let response = await authAPI.logout();
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodeEnum.SUCCESS) {
     dispatch(setAuthUserData(null, null, null, false));
   }
 }
