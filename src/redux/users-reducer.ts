@@ -132,15 +132,9 @@ export const onPageChanged = (pageNumber: number, pageSize: number):ThunkType =>
 type FollowUnfollowActionType =  FollowSuccessActionType | UnfollowSuccessActionType;
 // FUCType - алиас на тип функции action creator, которая возвращает либо FollowSuccessActionType, либо UnfollowSuccessActionType
 type FUCType = (userId:number) => FollowUnfollowActionType;
-// тип возвращаемого значения
 
-// type FollowRequestResultType ={
-//   resultCode: number
-//   messages: Array<string>
-//   data: any
-// }
-// type APIMethodType = (userId:number) => ThunkAction<Promise<FollowRequestResultType>, AppStateType, number, ActionTypes>
 
+// вынос общего кода из follow() и unfollow() в функцию _followUnfollowFlow()
 const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: FUCType) => {
   dispatch(toggleFollowingInProgress(true, userId));
   let response = await apiMethod(userId);

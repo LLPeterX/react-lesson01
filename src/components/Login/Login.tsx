@@ -1,15 +1,24 @@
 import React from 'react';
 import s from './Login.module.css';
 //import {Field, reduxForm} from 'redux-form';
-import { reduxForm } from 'redux-form';
+import { reduxForm, InjectedFormProps } from 'redux-form';
 import { Input, createField } from '../common/FormControls/FormControls';
 import { required } from '../../utils/validators/validators';
 import { connect } from 'react-redux';
-import { login } from '../../redux/auth-reducer.ts'
+import { login } from '../../redux/auth-reducer'
 import { Redirect } from 'react-router-dom';
 import formStyle from '../common/FormControls/FormControls.module.css';
+import {AppStateType} from '../../redux/redux-store'
 
-let LoginForm = ({ handleSubmit, error, captchaUrl }) => {
+type LoginFormValuesType = {
+  email:string, password:string, rememberMe:boolean, captcha:string|null
+}
+
+type OwnPropsType = {
+  captchaUrl: string|null
+}
+
+let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, OwnPropsType> & OwnPropsType> = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit}>
       {createField("Email", "email", [required], Input)}
@@ -31,14 +40,25 @@ let LoginForm = ({ handleSubmit, error, captchaUrl }) => {
   );
 }
 
-let ReduxLoginForm = reduxForm({ form: 'login' })(LoginForm);
 
-let Login = (props) => {
+
+let ReduxLoginForm = reduxForm<LoginFormValuesType, OwnPropsType>({ form: 'login' })(LoginForm);
+
+type MapStateType = {
+  isAuth: boolean
+  captchaUrl: string|null
+}
+
+type MapDispatchType = {
+  login: (email: string, password:string, rememberMe:boolean, captcha:string|null) => void
+}
+
+let Login: React.FC<MapStateType & MapDispatchType> = (props:MapStateType & MapDispatchType) => {
   // в onSunmit() передаются данные формы через объект formData
-  const onSubmit = (formData) => {
+  const onSubmit = (formData:LoginFormValuesType) => {
     props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
   }
-
+  
   // если мы уже авторизованы, делаем редирект на страницу своего профиля
   if (props.isAuth) return <Redirect to={'/profile'} />
   // иначе отображаем форму логина
@@ -52,7 +72,7 @@ let Login = (props) => {
   );
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:AppStateType):MapStateType => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl
 });
