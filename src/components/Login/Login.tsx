@@ -10,15 +10,14 @@ import { Redirect } from 'react-router-dom';
 import formStyle from '../common/FormControls/FormControls.module.css';
 import {AppStateType} from '../../redux/redux-store'
 
-type LoginFormValuesType = {
-  email:string
-  password:string
-  rememberMe:boolean
-  captcha:string|null
+export type LoginFormValuesType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: string | null
 }
 
-type LoginFormPropertiesType = "email" | "password" | "rememberMe" | "captcha"
-
+type LoginFormNameType = keyof LoginFormValuesType
 
 type OwnPropsType = {
   captchaUrl: string|null
@@ -27,14 +26,14 @@ type OwnPropsType = {
 let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, OwnPropsType> & OwnPropsType> = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField("Email", "email", [required], Input)}
-      {createField("Пароль", "password", [required], Input, { type: "password" })}
-      {createField(undefined, "rememberMe", [], Input, { type: "checkbox" }, "Запомнить меня")}
+      {createField<LoginFormNameType>("Email", "email", [required], Input)}
+      {createField<LoginFormNameType>("Пароль", "password", [required], Input, { type: "password" })}
+      {createField<LoginFormNameType>(undefined, "rememberMe", [], Input, { type: "checkbox" }, "Запомнить меня")}
       {
         captchaUrl &&
         <div className={s.captcha}>
           <img src={captchaUrl} alt="Captcha" />
-          {createField("Символы с картинки", "captcha", [required], Input)}
+          {createField<LoginFormNameType>("Символы с картинки", "captcha", [required], Input)}
         </div>
       }
       {/* error message */}

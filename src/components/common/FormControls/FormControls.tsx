@@ -14,6 +14,7 @@ export const Input: React.FC<WrappedFieldProps> = (props) => {
     <FormControl {...props}><input {...input} {...restProps} /></FormControl>
   )
 }
+// перенесено из Login.tsx
 
 type FormControlPropsType = {
   meta: WrappedFieldMetaProps
@@ -21,7 +22,7 @@ type FormControlPropsType = {
 
 //const FormControl:React.FC<PropsType> = ({ input, meta, ...props }) => {
 //const FormControl: FormControlType = ({ meta: { touched, error }, children }) => {
-  const FormControl: React.FC<FormControlPropsType> = ({ meta: { touched, error }, children }) => {
+const FormControl: React.FC<FormControlPropsType> = ({ meta: { touched, error }, children }) => {
   const hasError = error && touched;
   return (
     <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
@@ -35,13 +36,28 @@ type FormControlPropsType = {
 
 // Фцнкц.компонента - универсальное поле ввода
 // в props можно указать тип поля, напр. {type: "password"}
-export const createField = (
-  placeholder: string | undefined,
-  name: string,
-  validators: Array<FieldValidatorType>,
-  component:  React.FC<WrappedFieldProps>,
-  props = {},
-  text: string = "") => (
+
+// export const createField = (
+//   placeholder: string | undefined,
+//   name: string,
+//   validators: Array<FieldValidatorType>,
+//   component:  React.FC<WrappedFieldProps>,
+//   props = {},
+//   text: string = "") => (
+//     <div><Field name={name} id={name} type="text" placeholder={placeholder} component={component}
+//       validate={validators} {...props} />{text}</div>
+//   )
+
+// т.к. функции-дженерики не могут быть стрелочными, юзаем function():
+export function createField<T extends string|undefined>(
+  placeholder: string | undefined, // для чекбокса - undefined
+  name: T, // обобщенный тип - перечень возможных значений name
+  validators: Array<FieldValidatorType>, // массив функций-валидаторов (из validators)
+  component: React.FC<WrappedFieldProps>, // компонента: Input
+  props = {}, // дополнительный данные для поля ввода. У нас объект со свойством "type"
+  text: string = "") {
+  return (
     <div><Field name={name} id={name} type="text" placeholder={placeholder} component={component}
       validate={validators} {...props} />{text}</div>
-  )
+  );
+}
