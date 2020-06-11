@@ -11,8 +11,14 @@ import formStyle from '../common/FormControls/FormControls.module.css';
 import {AppStateType} from '../../redux/redux-store'
 
 type LoginFormValuesType = {
-  email:string, password:string, rememberMe:boolean, captcha:string|null
+  email:string
+  password:string
+  rememberMe:boolean
+  captcha:string|null
 }
+
+type LoginFormPropertiesType = "email" | "password" | "rememberMe" | "captcha"
+
 
 type OwnPropsType = {
   captchaUrl: string|null
@@ -32,7 +38,7 @@ let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, OwnPropsType> & O
         </div>
       }
       {/* error message */}
-      {error && <div className={formStyle.formError}>  {error} </div>}
+      {error && <div className={formStyle.formError}> {error} </div>}
       <div className={s.form_item}>
         <button>Login</button>
       </div>
