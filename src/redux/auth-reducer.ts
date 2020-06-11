@@ -1,4 +1,4 @@
-import { stopSubmit, FormAction } from 'redux-form';
+import { stopSubmit } from 'redux-form';
 import { authAPI, securityAPI } from '../api/api';
 import {ResultCodeEnum} from '../types/types'
 import { ThunkAction } from 'redux-thunk';

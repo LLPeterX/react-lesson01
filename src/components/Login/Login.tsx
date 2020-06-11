@@ -23,7 +23,7 @@ let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, OwnPropsType> & O
     <form onSubmit={handleSubmit}>
       {createField("Email", "email", [required], Input)}
       {createField("Пароль", "password", [required], Input, { type: "password" })}
-      {createField(null, "rememberMe", [], Input, { type: "checkbox" }, "Запомнить меня")}
+      {createField(undefined, "rememberMe", [], Input, { type: "checkbox" }, "Запомнить меня")}
       {
         captchaUrl &&
         <div className={s.captcha}>
