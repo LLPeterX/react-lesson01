@@ -91,17 +91,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   };
 }
 
-// let mapDispatchToProps = (dispatch:any) => {
-//   return {
-//     follow,
-//     unfollow,
-//     toggleFollowingInProgress: (state:boolean, userId:number) => dispatch(actions.toggleFollowingInProgress(state,userId)),
-//     requestUsers,
-//     onPageChanged
-//   };
-// }
-
-// Формируем мега-компоненту-обёртку над нашей. 
+// Формируем мега-компоненту-обёртку над нашей компонентой. 
 // С помощбю withAuthRedirect проверяем залогиненность
 // если ОК, то делаем connect(), формируем пропсы и вызываем рендер компоненты.
 
