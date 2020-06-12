@@ -17,7 +17,7 @@ export type LoginFormValuesType = {
   captcha: string | null
 }
 
-type LoginFormNameType = keyof LoginFormValuesType
+type LoginFormNameType = Extract<keyof LoginFormValuesType, string>
 
 type OwnPropsType = {
   captchaUrl: string|null

@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow, toggleFollowingInProgress, requestUsers, onPageChanged } from '../../redux/users-reducer';
+import { follow, unfollow, actions, requestUsers, onPageChanged } from '../../redux/users-reducer';
+//import { follow, unfollow, requestUsers, onPageChanged } from '../../redux/users-reducer';
+//import {actions} from '../../redux/users-reducer'
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader.jsx';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -26,6 +28,7 @@ type MapStateToPropsType = {
 // followingInProgress: getFollowingInProgress(state)
 
 
+// у нас объект actions
 type MapDispatchToPropsType = {
   follow: (userId: number) => void
   unfollow: (userId: number) => void
@@ -33,6 +36,7 @@ type MapDispatchToPropsType = {
   requestUsers: (currentPage: number, pageSize: number) => void
   onPageChanged: (pageNumber: number, pageSize: number) => void
 }
+
 
 // OwnPropsType нигде не используется; для примера
 type OwnPropsType = {
@@ -87,10 +91,25 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   };
 }
 
+// let mapDispatchToProps = (dispatch:any) => {
+//   return {
+//     follow,
+//     unfollow,
+//     toggleFollowingInProgress: (state:boolean, userId:number) => dispatch(actions.toggleFollowingInProgress(state,userId)),
+//     requestUsers,
+//     onPageChanged
+//   };
+// }
+
 // Формируем мега-компоненту-обёртку над нашей. 
 // С помощбю withAuthRedirect проверяем залогиненность
 // если ОК, то делаем connect(), формируем пропсы и вызываем рендер компоненты.
-export default compose(
-      connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps,
-              { follow, unfollow,  toggleFollowingInProgress,  requestUsers, onPageChanged })
-  ,withAuthRedirect)(UsersContainer);
+
+ export default compose(
+       connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps,
+               { follow, unfollow,  toggleFollowingInProgress: actions.toggleFollowingInProgress,  requestUsers, onPageChanged })
+   ,withAuthRedirect)(UsersContainer);
+  
+// export default compose(
+//     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps, mapDispatchToProps)
+// ,withAuthRedirect)(UsersContainer);

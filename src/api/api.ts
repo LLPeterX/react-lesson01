@@ -45,6 +45,8 @@ export const usersAPI = {
   }
 }
 
+type UsersAPIType = typeof usersAPI
+
 // ------------------------------- auth API --------------------------------------------------
 // типы для authAPI
 type MeResponseType =  {
