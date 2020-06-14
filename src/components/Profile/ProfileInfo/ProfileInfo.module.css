@@ -32,7 +32,7 @@
 }
 
 .avatar {
-	width: 80px;
+	width: 120px;
 }
 
 .contacts__title {
@@ -48,11 +48,6 @@
 	display: inline-block;
 }
 
-.profileData {
-	/* border: 1px solid blue; */
-	
-}
-
 .error {
 	border: 2px solid red;
 	background-color: white;
@@ -62,4 +57,8 @@
 
 .errorField {
 	border: 2px solid red;
+}
+
+.contacts__table {
+	padding-left: 20px;
 }

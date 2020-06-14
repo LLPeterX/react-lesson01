@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './ProfileInfo.module.css'
 
 type PropsType = {
   status: string
@@ -39,14 +40,14 @@ class ProfileStatus extends React.Component<PropsType, LocalStateType> {
 
   render() {
     return (
-      <div>
+      <div><b>Статус:</b>
         {!this.state.editMode ?
           <div>
             <span onDoubleClick={() => { this.activateEditMode() }}>{this.props.status || '(нет статуса)'}</span>
           </div>
           :
           <div>
-            <input value={this.state.status} onBlur={() => { this.deactivateEditMode() }}
+            <input className={style.statusText} value={this.state.status} onBlur={() => { this.deactivateEditMode() }}
               autoFocus={true} onChange={this.onStatusChange} />
           </div>
         }

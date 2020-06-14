@@ -30,10 +30,10 @@ export type UserType = {
   followed: boolean
  }
 
- export enum ResultCodeEnum {
-  SUCCESS=0,
-  ERROR=1,
-  CAPTCHA_REQUIRED=10
-}
+ export type FieldValidatorType = (value:string) => string | undefined;
 
-export type FieldValidatorType = (value:string) => string | undefined;
+export type GetUsersType = {
+  items: Array<UserType>
+  totalCount: number
+  error: string | null
+}

@@ -29,14 +29,14 @@ const ProfileInfo = (props) => {
           {/* ------------------- аватар  ------------------------*/}
           <div>
             <div><img src={props.profile.photos.large || defaultAvatar} alt="[Avatar]" className={s.avatar} /></div>
-            {props.isOwner && <div><input type="file" onChange={onMainPhotoSelected} /></div>}
+            {props.isOwner && <div><input type="file" onChange={onMainPhotoSelected} title=" " /></div>}
           </div>
           {/* ------------------- аватар  ------------------------*/}
 
           {editMode ?
             <ProfileEditForm initialValues={props.profile} profile={props.profile} onSubmit={onSubmit} /> :
-            <ProfileData profile={props.profile} isOwner={props.isOwner} activateEditMode={() => { setEditMode(true) }} />}
-
+            <ProfileData profile={props.profile} isOwner={props.isOwner} activateEditMode={() => { setEditMode(true) }} />
+          }
           <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
 
         </div>
@@ -46,25 +46,21 @@ const ProfileInfo = (props) => {
   );
 }
 
-const showTextAsURL = (url) => {
-  return (<a href={url}>{url}</a>);
-}
-const beautifyURL = (url) => {
-  // если значение начинается с "http", "https", то заключить в тег <a href>url</a>
-  if (!url) return "";
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return showTextAsURL(url);
-  }
-  if (url.startsWith("www")) {
-    return showTextAsURL("http://" + url);
-  }
-  return url;
-}
 
-const Contact = ({ title, value }) => {
-  return (
-      <div>{title} : {beautifyURL(value)}</div>
-  )
+// const Contact = ({ contactName, contactValue }) => {
+//   return (
+//     // <div>{contactName} : {beautifyURL(contactValue)}</div>
+//     <tr key={contactName}>
+//       <td>{contactName}</td>
+//       <td>{beautifyURL(contactValue)}</td>
+//     </tr>
+//   )
+// }
+
+const isEmptyContacts = (contacts) => {
+  let retval = Object.keys(contacts).some(key => contacts[key] != null);
+  return !retval;
+
 }
 
 const ProfileData = ({ profile, isOwner, activateEditMode }) => {
@@ -75,17 +71,25 @@ const ProfileData = ({ profile, isOwner, activateEditMode }) => {
       <div className={s.header__userInfo_job}><b>Ищу работу: </b>{profile.lookingForAJob ? 'Да' : 'Нет'}</div>
       <div className={s.header__userInfo_job}><b>Профессиональные навыки: </b>{profile.lookingForAJobDescription}</div>
       <div className={s.contacts}>
-        <div className={s.contacts__title}>Контакты</div>
-        <div className={s.contacts__body}>
-          {Object.keys(profile.contacts).map(key => {
-            return profile.contacts[key] && <Contact title={key} value={profile.contacts[key]} key={key} />
-          })
-          }
+        <div className={s.contacts__title}>{!isEmptyContacts(profile.contacts) && "Контакты"}</div>
+        <div className={s.contacts__table}>
+          <table>
+            <tbody>
+              {/* {Object.keys(profile.contacts).map(key => {
+              return (profile.contacts[key] && <Contact title={key} value={profile.contacts[key]} key={key} />)
+            })
+            } */}
+              {Object.keys(profile.contacts).map(key => {
+                return (profile.contacts[key]
+                  ? <tr key={key}><td>{key}</td><td>{profile.contacts[key]}</td></tr>
+                  : null)
+              })
+              }
+            </tbody>
+          </table>
         </div>
       </div>
-
       {isOwner && <button onClick={activateEditMode}>Редактировать</button>}
-
     </div>
   );
 }

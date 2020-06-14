@@ -1,7 +1,8 @@
 
-import { usersAPI } from '../api/api'
+import { usersAPI } from '../api/users-api'
 import { updateObjectInArray } from '../utils/object-helper'
-import { UserType, ResultCodeEnum } from '../types/types'
+import { UserType } from '../types/types'
+import {ResultCodeEnum} from '../api/api'
 import { AppStateType, InferActionsTypes } from './redux-store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -46,29 +47,32 @@ import { ThunkAction } from 'redux-thunk';
 // }
 
 //type ActionTypes = FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType | SetCurrentPageActionType | SetToatlUsersCountActionType | ToggleIsFetchingActionType | ToggleFollowingActionType;
-type ActionTypes = InferActionsTypes<typeof actions>
+type ActionsTypes = InferActionsTypes<typeof actions>
 // --------------------- state type -------------------
 
-type InitialStateType = {
-  users: Array<UserType> // массив отображаемых пользователей
-  pageSize: number // число пользователей на странице
-  totalUsersCount: number // общее число пользователей
-  currentPage: number // текущая страница
-  isFetching: boolean // индикатор загрузки с сервера
-  followingInProgress: Array<number> // массив id пользователей, для которых просходит обновление "followed"
-}
+// type InitialStateType = {
+//   users: Array<UserType> // массив отображаемых пользователей
+//   pageSize: number // число пользователей на странице
+//   totalUsersCount: number // общее число пользователей
+//   currentPage: number // текущая страница
+//   isFetching: boolean // индикатор загрузки с сервера
+//   followingInProgress: Array<number> // массив id пользователей, для которых просходит обновление "followed" (true/false) 
+// }
 
 
 
-let initialState: InitialStateType = {
-  users: [],
-  pageSize: 9, // чтобы получить сетку 3x3
-  totalUsersCount: 0,
-  currentPage: 1,
-  isFetching: false,
-  followingInProgress: [] // массив id юзеров, для которых выполняется обновление данных
+let initialState = {
+  users: [] as Array<UserType>,
+  pageSize: 9 as number, // чтобы получить сетку 3x3
+  totalUsersCount: 0 as number,
+  currentPage: 1 as number,
+  isFetching: false as boolean,
+  followingInProgress: [] as Array<number> // массив id юзеров, для которых выполняется обновление данных
 };
-const usersReducer = (state = initialState, action: ActionTypes) => {
+
+type InitialStateType = typeof initialState;
+
+const usersReducer = (state:InitialStateType = initialState, action: ActionsTypes) => {
   //let newState;
   switch (action.type) {
     case 'FOLLOW':
@@ -116,8 +120,8 @@ export const actions = {
 
 // thunks
 type GetStateType = () => AppStateType;
-type DispatchType = Dispatch<ActionTypes>;
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
+type DispatchType = Dispatch<ActionsTypes>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const requestUsers = (pageNumber: number, pageSize: number): ThunkType =>
   async (dispatch, getState) => {
@@ -129,8 +133,6 @@ export const requestUsers = (pageNumber: number, pageSize: number): ThunkType =>
     dispatch(actions.setCurrentPage(pageNumber));
   };
 
-
-
 export const onPageChanged = (pageNumber: number, pageSize: number): ThunkType =>
   async (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
@@ -140,15 +142,10 @@ export const onPageChanged = (pageNumber: number, pageSize: number): ThunkType =
     dispatch(actions.setUsers(response.items));
   }
 
-// Вынос сюда общего кода из follow() и unfollow(). Внутренний тип, посему с подчеркиванием
-//type FollowUnfollowActionType =  FollowSuccessActionType | UnfollowSuccessActionType;
-// FUCType - алиас на тип функции action creator, которая возвращает либо FollowSuccessActionType, либо UnfollowSuccessActionType
-//type FUCType = (userId:number) => FollowUnfollowActionType;
-
-
 // вынос общего кода из follow() и unfollow() в функцию _followUnfollowFlow()
 // apiMehod - usersAPI.follow() или usersAPI.unfollow()
 //const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: FUCType) => {
+  
 const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: any) => {
   dispatch(actions.toggleFollowingInProgress(true, userId));
   let response = await apiMethod(userId);

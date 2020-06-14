@@ -96,7 +96,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 // если ОК, то делаем connect(), формируем пропсы и вызываем рендер компоненты.
 
  export default compose(
-       connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps,
+       connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
                { follow, unfollow,  toggleFollowingInProgress: actions.toggleFollowingInProgress,  requestUsers, onPageChanged })
    ,withAuthRedirect)(UsersContainer);
   

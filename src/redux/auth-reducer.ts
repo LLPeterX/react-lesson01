@@ -1,6 +1,7 @@
 import { stopSubmit } from 'redux-form';
-import { authAPI, securityAPI } from '../api/api';
-import {ResultCodeEnum} from '../types/types'
+import { authAPI } from '../api/auth-api'
+import {securityAPI} from '../api/security-api'
+import {ResultCodeEnum} from '../api/api'
 import { ThunkAction } from 'redux-thunk';
 import {AppStateType} from './redux-store'
 import { Dispatch } from 'redux';
@@ -30,13 +31,15 @@ type ActionTypes = SetUserDataActionType|GetCaptchaUrlSuccessActionType;
 type DispatchType = Dispatch<ActionTypes>;
 
 // ниже создадим тип InitialStateType на основе существующего объекта initialState
+type Nullable<T> = T | null;
+
 let initialState = {
-  userId: null as number | null,
-  email: null as string | null,
-  login: null as string | null,
+  userId: null as Nullable<number>,
+  email: null as Nullable<string>,
+  login: null as Nullable<string>,
   isFetching: false as boolean,
   isAuth: false as boolean,
-  captchaUrl: null as string | null
+  captchaUrl: null as Nullable<string>
 }
 
 type InitialStateType = typeof initialState;
@@ -97,8 +100,8 @@ export const logout = ():ThunkType => async (dispatch:DispatchType) => {
 }
 
 export const getCaptchaUrl = ():ThunkType => async (dispatch:DispatchType) => {
-  const response = await securityAPI.getCaptchaURL();
-  const captchaUrl = response.data.url;
+  const data = await securityAPI.getCaptchaURL();
+  const captchaUrl = data.url;
   dispatch(setCaptchaUrlSuccess(captchaUrl));
 }
 
