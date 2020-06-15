@@ -1,22 +1,18 @@
 import {getAuthUserData} from './auth-reducer';
+import {InferActionsTypes} from '../redux/redux-store'
 
 const INITIALIZED_SUCCESS='lesson001/app/INITIALIZED-SUCCESS';
 
-// Объявление типа
-type InitialStateType = {
-  isIntialized: boolean
+// Начальный стейт, с добавлением типизации через typeof
+let initialState = {
+  isIntialized: false as boolean
 }
 
-// Начальный стейт
-let initialState: InitialStateType = {
-  isIntialized: false
-}
+export type InitialStateType = typeof initialState; // тип сетейта
 
-type InitializedSuccessActionType = {
-  type: typeof INITIALIZED_SUCCESS
-}
+type ActionsTypes = InferActionsTypes<typeof actions> // тип actions. Объект actions см. ниже
 
-const appReducer = (state=initialState, action: InitializedSuccessActionType):InitialStateType => {
+const appReducer = (state=initialState, action:ActionsTypes):InitialStateType => {
   switch(action.type) {
     case INITIALIZED_SUCCESS:
       return {...state, isIntialized: true};
@@ -25,13 +21,13 @@ const appReducer = (state=initialState, action: InitializedSuccessActionType):In
   }
 }
 
-export const initializedSuccess = ():InitializedSuccessActionType => ({ type: INITIALIZED_SUCCESS} );
-
+export const actions = {
+  initializedSuccess: () => ({ type: INITIALIZED_SUCCESS} )
+}
 // thunk
 export const initializeApp = () => (dispatch:any) => {
   let promise = dispatch(getAuthUserData());
-  Promise.all([promise]).then( () => {dispatch(initializedSuccess())});
+  Promise.all([promise]).then( () => {dispatch(actions.initializedSuccess())});
 }
-
 
 export default appReducer;
