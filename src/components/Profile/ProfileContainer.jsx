@@ -3,7 +3,7 @@ import Profile from './Profile';
 import { connect } from 'react-redux';
 import { getUserProfile, getStatus, updateStatus,savePhoto, saveProfile } from '../../redux/profile-reducer.ts';
 import { withRouter } from 'react-router';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect.js';
 import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {

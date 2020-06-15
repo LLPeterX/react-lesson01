@@ -23,8 +23,10 @@ type RootReducerType = typeof rootReducer;
 export type AppStateType = ReturnType<RootReducerType>;
 
 // Обобщенный тип для получения типа от action creator
-export type InferActionsTypes<T extends {[key: string]: (...args:any)=>any}> = 
+ export type InferActionsTypes<T extends {[key: string]: (...args:any)=>any}> = 
   ReturnType<T extends {[key: string]: infer U} ? U : never>
+// покороче:
+//export type InferActionsTypes<T> = T extends {[key: string]: infer U} ? U : never
   
 //export type DispatchType = Dispatch<ActionsTypes>;
 export type BaseThunkType<A extends Action,R=Promise<void>> = ThunkAction<R, AppStateType, unknown, A>

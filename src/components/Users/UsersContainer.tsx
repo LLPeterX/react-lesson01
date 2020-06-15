@@ -5,7 +5,7 @@ import { follow, unfollow, actions, requestUsers, onPageChanged } from '../../re
 //import {actions} from '../../redux/users-reducer'
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader.jsx';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect.js';
 import { compose } from 'redux';
 import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/UsersSelectors'
 import { UserType } from '../../types/types';

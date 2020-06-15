@@ -1,24 +1,22 @@
 import Dialogs from './Dialogs';
-import { actions } from '../../redux/dialogs-reducer.ts';
+import { actions, ActionsType } from '../../redux/dialogs-reducer';
 import {connect} from 'react-redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { compose } from 'redux';
-import { reset } from 'redux-form';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect.js';
+import { compose, Dispatch } from 'redux';
+import { reset, FormAction } from 'redux-form';
+import { AppStateType } from '../../redux/redux-store';
 
-
+type DispatchType = Dispatch<ActionsType | FormAction>
 // используем rect-redux
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType) => {
   return {
     dialogsPage: state.dialogsPage,
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
+let mapDispatchToProps = (dispatch:DispatchType) => {
   return {
-    // updateNewMessage: (text) => {
-    //   dispatch(updateNewMessageBodyCreator(text));
-    // },
-    sendMessage: (text) => {
+    sendMessage: (text:string) => {
       dispatch(actions.sendMessageActionCreator(text));
       dispatch(reset('dialogsForm'));
     }

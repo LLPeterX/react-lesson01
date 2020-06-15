@@ -77,9 +77,10 @@ const usersReducer = (state:InitialStateType = initialState, action: ActionsType
   //let newState;
   switch (action.type) {
     case 'FOLLOW':
-      return { ...state, users: updateObjectInArray(state.users, action.userId, "id", { followed: true }) }
+      //return { ...state, users: updateObjectInArray(state.users, action.userId, "id", { followed: true }) }
+      return { ...state, users: updateObjectInArray<UserType>(state.users, action.userId, "id", { followed: true }) }
     case 'UNFOLLOW':
-      return { ...state, users: updateObjectInArray(state.users, action.userId, "id", { followed: false }) }
+      return { ...state, users: updateObjectInArray<UserType>(state.users, action.userId, "id", { followed: false }) }
     case 'SET_USERS':
       return { ...state, users: [...action.users] };
     case 'SET_CURRENT_PAGE':

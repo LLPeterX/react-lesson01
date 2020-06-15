@@ -9,7 +9,7 @@ export const withAuthRedirect = (Component) => {
       if (this.props.isAuth)
         return <Component {...this.props} />;
       else
-        return <Redirect to='/login' />;
+        return <Redirect to={'/login'} />;
     } // render
   } // class
   
