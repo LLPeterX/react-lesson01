@@ -73,7 +73,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 
-const usersReducer = (state:InitialStateType = initialState, action: ActionsType) => {
+const usersReducer = (state:InitialStateType = initialState, action: ActionsType):InitialStateType => {
   //let newState;
   switch (action.type) {
     case 'FOLLOW':
@@ -120,8 +120,8 @@ export const actions = {
 }
 
 // thunks
-type GetStateType = () => AppStateType;
-type DispatchType = Dispatch<ActionsType>;
+type GetStateType = () => AppStateType
+type DispatchType = Dispatch<ActionsType>
 //type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 type ThunkType = BaseThunkType<ActionsType> // или <typeof actions>
 
@@ -147,8 +147,14 @@ export const onPageChanged = (pageNumber: number, pageSize: number): ThunkType =
 // вынос общего кода из follow() и unfollow() в функцию _followUnfollowFlow()
 // apiMehod - usersAPI.follow() или usersAPI.unfollow()
 //const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: FUCType) => {
-  
-const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: any) => {
+
+
+const _followUnfollowFlow = 
+  async (
+     dispatch: Dispatch<ActionsType>, 
+     userId: number, 
+     apiMethod: any, actionCreator: (userId: number) => ActionsType
+    ) => {
   dispatch(actions.toggleFollowingInProgress(true, userId));
   let response = await apiMethod(userId);
   if (response.resultCode === ResultCodeEnum.SUCCESS) {
