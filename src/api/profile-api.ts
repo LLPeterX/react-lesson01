@@ -3,7 +3,7 @@ import { ProfileType, PhotosType } from '../types/types'
 
 
 export const profileAPI = {
-  getProfile(userId:number) {
+  getProfile(userId:number|null) {
     return instance.get<ProfileType>(`profile/${userId}`).then(response => response.data);
   },
   getStatus(userId:number) {
@@ -12,7 +12,7 @@ export const profileAPI = {
   updateStatus(status:string) {
     return instance.put<ResponseType>(`profile/status`,{status}).then(response => response.data);
   },
-  savePhoto(file:string) {
+  savePhoto(file:File) {
     let formData = new FormData();
     formData.append('image',file);
     let queryHeaders = { headers: { 'Content-Type': 'multipart/form-data'} };
