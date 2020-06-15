@@ -1,5 +1,5 @@
 import Dialogs from './Dialogs';
-import { sendMessageCreator } from '../../redux/dialogs-reducer.ts';
+import { actions } from '../../redux/dialogs-reducer.ts';
 import {connect} from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
@@ -19,7 +19,7 @@ let mapDispatchToProps = (dispatch) => {
     //   dispatch(updateNewMessageBodyCreator(text));
     // },
     sendMessage: (text) => {
-      dispatch(sendMessageCreator(text));
+      dispatch(actions.sendMessageActionCreator(text));
       dispatch(reset('dialogsForm'));
     }
   };

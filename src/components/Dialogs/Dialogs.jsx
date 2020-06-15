@@ -30,8 +30,10 @@ let DialogFormRedux = reduxForm({form: 'dialogsForm'})(DialogForm);
 
 const Dialogs = (props) => {
   let state = props.dialogsPage;
-  let dialogElements = state.usersData.map(e => <DialogItem name={e.name} key={e.id} id={e.id} />); // список юзеров
-  let messageElements = state.msgData.map(m => <Message message={m.message} key={m.id} />); // список нагих сообщений
+  console.log(state);
+  
+  let dialogElements = state.dialogs.map(e => <DialogItem name={e.name} key={e.id} id={e.id} />); // список юзеров
+  let messageElements = state.messages.map(m => <Message message={m.message} key={m.id} />); // список нагих сообщений
 
   if (!props.isAuth) return <Redirect to='/login' />;
 
