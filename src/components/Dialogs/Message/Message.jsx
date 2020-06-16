@@ -1,9 +1,8 @@
-import React from "react";
-import s from '../Dialogs.module.css'; // импорт на уровень выше
-
+import React from "react"
+import s from '../Dialogs.module.css'
 const Message = (props) => {
     return (
-        <div className={s.message}>{props.message}</div>
+        <div className={s.message}>{props.newMessageBody}</div>
     );
 }
 

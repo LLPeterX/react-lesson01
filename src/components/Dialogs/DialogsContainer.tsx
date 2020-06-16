@@ -10,13 +10,15 @@ type DispatchType = Dispatch<ActionsType | FormAction>
 // используем rect-redux
 let mapStateToProps = (state:AppStateType) => {
   return {
-    dialogsPage: state.dialogsPage,
+    dialogsPage: state.dialogsPage
   }
 }
 
 let mapDispatchToProps = (dispatch:DispatchType) => {
   return {
     sendMessage: (text:string) => {
+      //console.log('call mapDispatchToProps');
+      
       dispatch(actions.sendMessageActionCreator(text));
       dispatch(reset('dialogsForm'));
     }

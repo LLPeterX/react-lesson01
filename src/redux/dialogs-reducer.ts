@@ -29,7 +29,7 @@ let initialState = {
   ] as Array<MessageType>
 };
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 export type ActionsType = InferActionsTypes<typeof actions>
 
 const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -40,10 +40,14 @@ const dialogsReducer = (state = initialState, action: ActionsType): InitialState
       let lastMsg = state.messages.reduce((acc, curr) => acc.id > curr.id ? acc : curr);
       let nextId = lastMsg.id + 1;
       // добавляем новый элемент в массив messages.
-      return {
+      console.log(`addMessage reducer: text=${msgText} id=${nextId}`);
+      let newState = {
         ...state,
         messages: [...state.messages, { id: nextId, message: msgText + " (id=" + nextId + ")" }]
-      };
+      }
+      console.log(newState);
+      
+      return newState
     default:
       return state;
   }
