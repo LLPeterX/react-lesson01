@@ -29,5 +29,5 @@ let mapDispatchToProps = (dispatch:DispatchType) => {
 // const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponent);
 // export default DialogsContainer;
 
-export default compose(connect(mapStateToProps,mapDispatchToProps), withAuthRedirect)(Dialogs);
+export default compose(connect(mapStateToProps,mapDispatchToProps), withAuthRedirect)(Dialogs) as React.FC;
 

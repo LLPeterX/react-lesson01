@@ -98,7 +98,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
  export default compose(
        connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
                { follow, unfollow,  toggleFollowingInProgress: actions.toggleFollowingInProgress,  requestUsers, onPageChanged })
-   ,withAuthRedirect)(UsersContainer);
+   ,withAuthRedirect)(UsersContainer) as React.ComponentType
   
 // export default compose(
 //     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps, mapDispatchToProps)

@@ -82,4 +82,4 @@ const mapStateToProps = (state:AppStateType):MapStateType => ({
   captchaUrl: state.auth.captchaUrl
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(Login) as React.FC
