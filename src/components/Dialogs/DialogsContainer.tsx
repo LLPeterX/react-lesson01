@@ -1,7 +1,7 @@
 import Dialogs from './Dialogs';
 import { actions, ActionsType } from '../../redux/dialogs-reducer';
 import {connect} from 'react-redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect.js';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose, Dispatch } from 'redux';
 import { reset, FormAction } from 'redux-form';
 import { AppStateType } from '../../redux/redux-store';
