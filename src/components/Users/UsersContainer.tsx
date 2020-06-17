@@ -95,7 +95,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 // С помощбю withAuthRedirect проверяем залогиненность
 // если ОК, то делаем connect(), формируем пропсы и вызываем рендер компоненты.
 
- export default compose(
+ export default compose<React.ComponentType>(
        connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
                { follow, unfollow,  toggleFollowingInProgress: actions.toggleFollowingInProgress,  requestUsers, onPageChanged })
    ,withAuthRedirect)(UsersContainer) as React.ComponentType
