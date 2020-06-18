@@ -4,7 +4,7 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { InitialStateType } from '../../redux/dialogs-reducer'
 import AddMessageForm from './AddMessageForm'
-
+import {NewMessageFormValuesType} from './AddMessageForm'
 
 // redux forms
 
@@ -13,11 +13,6 @@ type PropsType = {
   dialogsPage: InitialStateType
   sendMessage: (text: string) => void
 }
-
-export type NewMessageFormValuesType = {
-  newMessageBody: string
-}
-
 
 const Dialogs: React.FC<PropsType> = (props) => {
   let state = props.dialogsPage;

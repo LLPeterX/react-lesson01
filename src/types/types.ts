@@ -19,6 +19,7 @@ export type ProfileType = {
   fullName: string
   contacts: ContactsType
   photos: PhotosType
+  aboutMe: string
 }
 
 // Users
@@ -36,4 +37,10 @@ export type GetUsersType = {
   items: Array<UserType>
   totalCount: number
   error: string | null
+}
+
+
+export type FormErrorFieldType = {
+  fieldName: string
+  message: string
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {logout } from '../../redux/auth-reducer.ts';
+import {logout } from '../../redux/auth-reducer';
 import Header from './Header';
 
-
+type PropsType = {
+  
+}
 class HeaderContainer extends React.Component {
   // componentDidMount() {
   //   this.props.getAuthUserData();

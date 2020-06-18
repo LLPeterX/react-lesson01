@@ -3,7 +3,12 @@ import s from './Header.module.css';
 import volk from '../../assets/images/pirat.png';
 import { NavLink } from 'react-router-dom';
 
-const Header = (props) => {
+type PropsType = {
+  isAuth: boolean
+  login: () => void
+  logout: () => void
+}
+const Header: React.FC<PropsType> = (props) => {
   return (
     <header className={s.header}>
       <div className={s.header__logotype}>

@@ -1,21 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import s from './ProfileInfo.module.css'
 import defaultAvatar from '../../../assets/images/empty-avatar-png-18.png';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import ProfileEditForm from './ProfileEditForm'
+import { ProfileType, ContactsType } from '../../../types/types'
 
-const ProfileInfo = (props) => {
+type PropsType = {
+  profile: ProfileType
+  status: string|null
+  isOwner: boolean
+  updateStatus: (status:string|null) => void
+  savePhoto: (file:File) => void
+  saveProfile: (profile: ProfileType) => Promise<void>
+}
+const ProfileInfo:React.FC<PropsType> = (props) => {
 
   let [editMode, setEditMode] = useState(false);
 
-  const onMainPhotoSelected = (e) => {
-    if (e.target.files.length) {
+  const onMainPhotoSelected = (e:ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
       props.savePhoto(e.target.files[0]);
     }
   }
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData:ProfileType) => {
+    // todo: remove .then()
     props.saveProfile(formData).then(() => { setEditMode(false); });
     //setEditMode(false);
   }
@@ -57,21 +67,27 @@ const ProfileInfo = (props) => {
 //   )
 // }
 
-const isEmptyContacts = (contacts) => {
-  let retval = Object.keys(contacts).some(key => contacts[key] != null);
-  return !retval;
+// const isEmptyContacts = (contacts:Array<ContactsType>) => {
+//   let retval = Object.keys(contacts).some(key => contacts[key] != null);
+//   return !retval;
 
+// }
+
+type ProfileDataPropsType = {
+  profile: ProfileType
+  isOwner: boolean
+  activateEditMode: () => void
 }
-
-const ProfileData = ({ profile, isOwner, activateEditMode }) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activateEditMode }) => {
   return (
     <div className={s.profileData}>
       <div className={s.header__userInfo_userName}> {profile.fullName} </div>
-      <div className={s.header__userInfo_job}><b>Обо мне: </b>{profile.aboutMe}</div>
+      {/* <div className={s.header__userInfo_job}><b>Обо мне: </b>{profile.aboutMe}</div> */}
       <div className={s.header__userInfo_job}><b>Ищу работу: </b>{profile.lookingForAJob ? 'Да' : 'Нет'}</div>
       <div className={s.header__userInfo_job}><b>Профессиональные навыки: </b>{profile.lookingForAJobDescription}</div>
       <div className={s.contacts}>
-        <div className={s.contacts__title}>{!isEmptyContacts(profile.contacts) && "Контакты"}</div>
+        {/* <div className={s.contacts__title}>{!isEmptyContacts(profile.contacts) && "Контакты"}</div> */}
+        <div className={s.contacts__title}>"Контакты"</div>
         <div className={s.contacts__table}>
           <table>
             <tbody>
@@ -80,8 +96,8 @@ const ProfileData = ({ profile, isOwner, activateEditMode }) => {
             })
             } */}
               {Object.keys(profile.contacts).map(key => {
-                return (profile.contacts[key]
-                  ? <tr key={key}><td>{key}</td><td>{profile.contacts[key]}</td></tr>
+                return (profile.contacts[key as keyof ContactsType]
+                  ? <tr key={key}><td>{key}</td><td>{profile.contacts[key as keyof ContactsType]}</td></tr>
                   : null)
               })
               }

@@ -1,7 +1,8 @@
-import { actions } from '../../../redux/profile-reducer.ts'
+import { actions } from '../../../redux/profile-reducer'
 import MyPosts from './MyPosts'
 import {connect} from 'react-redux'
 import {reset} from 'redux-form'
+
 
 
 let mapStateToProps = (state) => {

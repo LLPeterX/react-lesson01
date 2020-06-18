@@ -48,6 +48,9 @@ const FormControl: React.FC<FormControlPropsType> = ({ meta: { touched, error },
 //       validate={validators} {...props} />{text}</div>
 //   )
 
+// вспомогательный тип для формы:
+export type GetStringKeys<T> = Extract<keyof T, string>
+
 // т.к. функции-дженерики не могут быть стрелочными, юзаем function():
 export function createField<T extends string|undefined>(
   placeholder: string | undefined, // для чекбокса - undefined

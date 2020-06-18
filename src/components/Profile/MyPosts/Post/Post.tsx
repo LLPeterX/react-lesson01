@@ -3,7 +3,11 @@ import React from 'react'
 import s from "./Post.module.css"
 import myAvatar from '../../../../assets/images/my_avatar_64.jpg';
 
-const Post = (props) => {
+type PropsType = {
+  message: string
+  likes: number
+}
+const Post:React.FC<PropsType> = (props) => {
   //console.log(props);
   //debugger;
   return (

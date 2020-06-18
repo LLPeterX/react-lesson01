@@ -28,6 +28,7 @@ type MapDispatchType = {
 
 const SuspendedUsers = withLazyLoading(UsersContainer);
 const SuspendedDialogs = withLazyLoading(DialogsContainer);
+const SuspendedProfile = withLazyLoading(ProfileContainer);
 
 class App extends React.Component<MapPropsType & MapDispatchType> {
 
@@ -56,7 +57,7 @@ class App extends React.Component<MapPropsType & MapDispatchType> {
                 <NavBar />
                 <div className="app-wrapper-content">
                     <Switch>
-                        <Route path="/profile/:userId?" render={withLazyLoading(ProfileContainer)} />
+                        <Route path="/profile/:userId?" render={() => <SuspendedProfile/>} />
                         <Route path="/dialogs" render={() => <SuspendedDialogs />} />
                         <Route path="/users" render={() => <SuspendedUsers />} />
                         <Route path="/login" render={() => <LoginPage />} />

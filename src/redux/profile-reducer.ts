@@ -9,7 +9,7 @@ import { InferActionsTypes, BaseThunkType } from './redux-store';
 // const DELETE_POST = 'lesson001/profile/DELETE-POST'
 // const SAVE_PHOTO_SUCCESS = 'lesson001/profile/SAVE-PHOTO-SUCCESS'
 
-type PostsDataType = {
+export type PostType = {
   id: number
   message: string
   likes: number
@@ -19,7 +19,7 @@ let initialState = {
   postsData: [
     { id: 1, message: "Gotta to break free!", likes: 2 },
     { id: 2, message: "Пью пиво", likes: 20 }
-  ] as Array<PostsDataType>,
+  ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: '' as string | null
 };
