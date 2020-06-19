@@ -1,5 +1,6 @@
 import {getAuthUserData} from './auth-reducer';
 import {InferActionsTypes} from '../redux/redux-store'
+import { Dispatch } from 'redux';
 
 const INITIALIZED_SUCCESS='lesson001/app/INITIALIZED-SUCCESS';
 
@@ -25,7 +26,7 @@ export const actions = {
   initializedSuccess: () => ({ type: INITIALIZED_SUCCESS} )
 }
 // thunk
-export const initializeApp = () => (dispatch:any) => {
+export const initializeApp = () => (dispatch:Dispatch<any>) => {
   let promise = dispatch(getAuthUserData());
   Promise.all([promise]).then( () => {dispatch(actions.initializedSuccess())});
 }

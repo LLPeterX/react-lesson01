@@ -2,17 +2,22 @@ import React from 'react'
 import s from './ProfileInfo.module.css'
 import { reduxForm, InjectedFormProps } from 'redux-form';
 import { Input, TextArea, createField, GetStringKeys } from '../../common/FormControls/FormControls'
-import { ProfileType, ContactsType, FormErrorFieldType } from '../../../types/types'
+import { ProfileType, FormErrorFieldType } from '../../../types/types'
 
 
 type PropsType = {
-  profile:ProfileType
-  error: FormErrorFieldType|null
+  profile: ProfileType
+  //error: FormErrorFieldType|null
 }
 type ProfileFormKeys = GetStringKeys<ProfileType>
 
 
 const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = ({ handleSubmit, profile, error }) => {
+  if (error) {
+    console.log('ProfileForm Error:');
+    console.log(error);
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className={s.profileData}>
@@ -29,10 +34,15 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsTyp
             {/* todo: что-то придумать для типа key  */}
             {Object.keys(profile.contacts).map((key) => {
               return (
-                <div key={key} className={error && (error.fieldName === 'contacts.' + key ? s.errorField : "")}>
+                // <div key={key} className={error && (error.fieldName === 'contacts.' + key ? s.errorField : "")}>
+                //   <label htmlFor={key}>{key}</label>
+                //   {createField(key, 'contacts.' + key, [], Input)}
+                // </div>
+                <div key={key} >
                   <label htmlFor={key}>{key}</label>
                   {createField(key, 'contacts.' + key, [], Input)}
                 </div>
+
               );
             })
             }
@@ -47,7 +57,7 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsTyp
   );
 }
 
-let ProfileEditForm = reduxForm<ProfileType,PropsType>({ form: 'profile-edit' })(ProfileForm);
+let ProfileEditForm = reduxForm<ProfileType, PropsType>({ form: 'profile-edit' })(ProfileForm);
 
 
 export default ProfileEditForm

@@ -18,13 +18,16 @@
 // Новый метод
 
 // Общий тип для объекта, к которому можно образаться как obj["propName"]
-type IndexableObjectType = {[item: string]:any} // значение свойств объекта может быть любым
+type PropertyValueType = number // можно расширить. У нас пока userId:number
+type IndexableObjectType = {[item: string]:PropertyValueType} // тип значения свойста объекта может быть любым - any. Може
 
-export function updateObjectInArray<O extends IndexableObjectType>(itemsArray:Array<O>, propValue:any, propName:string, newObjProps: any) {
-  return itemsArray.map((item:O) => {
-    if (item[propName] === propValue) {
-      return { ...item, ...newObjProps }; 
-    }
-    return item; 
+
+export function updateObjectInArray<O extends IndexableObjectType>(itemsArray:Array<O>, propValue:PropertyValueType, propName:string, newObjProps: any) {
+  return itemsArray.map((item) => {
+    return (item[propName] === propValue) ? { ...item, ...newObjProps } : item;
+    // if (item[propName] === propValue) {
+    //   return { ...item, ...newObjProps }; 
+    // }
+    // return item; 
   });
 }

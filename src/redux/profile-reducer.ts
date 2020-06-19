@@ -21,12 +21,12 @@ let initialState = {
     { id: 2, message: "Пью пиво", likes: 20 }
   ] as Array<PostType>,
   profile: null as ProfileType | null,
-  status: '' as string | null
+  status: '' as string
 };
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsType | FormAction>
+export type ThunkType = BaseThunkType<ActionsType | FormAction>
 
 // ------------------------ action types --------------------
 // type AddPostActionType = {

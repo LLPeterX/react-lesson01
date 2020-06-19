@@ -2,12 +2,10 @@ import React from 'react';
 import s from './Header.module.css';
 import volk from '../../assets/images/pirat.png';
 import { NavLink } from 'react-router-dom';
+import {MapStateTtype, MapDispatchType} from './HeaderContainer'
 
-type PropsType = {
-  isAuth: boolean
-  login: () => void
-  logout: () => void
-}
+type PropsType = MapStateTtype & MapDispatchType
+
 const Header: React.FC<PropsType> = (props) => {
   return (
     <header className={s.header}>

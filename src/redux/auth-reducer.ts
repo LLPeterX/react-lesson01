@@ -32,15 +32,14 @@ type DispatchType = Dispatch<ActionTypes>;
 
 // ниже создадим тип InitialStateType на основе существующего объекта initialState
 // хотя лучше использовать тип|null
-type Nullable<T> = T | null;
 
 let initialState = {
-  userId: null as Nullable<number>,
-  email: null as Nullable<string>,
-  login: null as Nullable<string>,
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
   isFetching: false as boolean,
   isAuth: false as boolean,
-  captchaUrl: null as Nullable<string>
+  captchaUrl: null as string|null
 }
 
 type InitialStateType = typeof initialState;

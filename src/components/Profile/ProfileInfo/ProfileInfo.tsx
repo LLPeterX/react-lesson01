@@ -5,12 +5,13 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import ProfileEditForm from './ProfileEditForm'
 import { ProfileType, ContactsType } from '../../../types/types'
+import { Redirect } from 'react-router-dom';
 
 type PropsType = {
-  profile: ProfileType
-  status: string|null
+  profile: ProfileType|null
+  status: string
   isOwner: boolean
-  updateStatus: (status:string|null) => void
+  updateStatus: (status:string) => void
   savePhoto: (file:File) => void
   saveProfile: (profile: ProfileType) => Promise<void>
 }
@@ -19,7 +20,7 @@ const ProfileInfo:React.FC<PropsType> = (props) => {
   let [editMode, setEditMode] = useState(false);
 
   const onMainPhotoSelected = (e:ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
+    if (e.target.files && e.target.files.length) {
       props.savePhoto(e.target.files[0]);
     }
   }
@@ -74,11 +75,12 @@ const ProfileInfo:React.FC<PropsType> = (props) => {
 // }
 
 type ProfileDataPropsType = {
-  profile: ProfileType
+  profile: ProfileType|null
   isOwner: boolean
   activateEditMode: () => void
 }
 const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activateEditMode }) => {
+  if(!profile) return (<Redirect to="/"/>)
   return (
     <div className={s.profileData}>
       <div className={s.header__userInfo_userName}> {profile.fullName} </div>

@@ -1,7 +1,7 @@
 // state = _state.menu
 let initialState:any = {};
 
-const sidebarReducer = (state=initialState, action:any) => {
+const sidebarReducer = (state=initialState) => {
 
   return state;
 

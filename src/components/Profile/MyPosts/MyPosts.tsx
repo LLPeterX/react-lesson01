@@ -7,10 +7,19 @@ import { reset } from 'redux-form'
 import { AddPostFormValuesType } from  './AddPostForm'
 
 
-type PropsType = {
+// type PropsType = {
+//   posts: Array<PostType>
+//   addPost: (newPostText:string) => void
+// }
+
+export type MapPropsType = {
   posts: Array<PostType>
+}
+export type MapDispatchType = {
   addPost: (newPostText:string) => void
 }
+
+type PropsType = MapPropsType & MapDispatchType
 
 let MyPosts:React.FC<PropsType> = (props) => {
   let postsElements = [...props.posts].reverse().map(e => <Post message={e.message} likes={e.likes} key={e.id} />);
@@ -18,7 +27,7 @@ let MyPosts:React.FC<PropsType> = (props) => {
   const onAddPost = (formData:AddPostFormValuesType) => {
     props.addPost(formData.newPostText);
     //dispatch(reset('addPostForm')); // очистить форму ввода
-    reset('addPostForm'); // чистим форму
+    reset('addPostForm'); // чистим форму 
   };
 
   return (
