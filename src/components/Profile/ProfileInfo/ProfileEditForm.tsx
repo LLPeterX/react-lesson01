@@ -2,7 +2,7 @@ import React from 'react'
 import s from './ProfileInfo.module.css'
 import { reduxForm, InjectedFormProps } from 'redux-form';
 import { Input, TextArea, createField, GetStringKeys } from '../../common/FormControls/FormControls'
-import { ProfileType, FormErrorFieldType } from '../../../types/types'
+import { ProfileType  } from '../../../types/types'
 
 
 type PropsType = {
@@ -10,7 +10,6 @@ type PropsType = {
   //error: FormErrorFieldType|null
 }
 type ProfileFormKeys = GetStringKeys<ProfileType>
-
 
 const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = ({ handleSubmit, profile, error }) => {
   if (error) {
@@ -25,7 +24,7 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsTyp
         <div className={s.header__userInfo_job}>Обо мне: {createField<ProfileFormKeys>("Краткая информация обо мне", "aboutMe", [], TextArea)}</div>
         <div className={s.header__userInfo_job}>Ищу работу: {createField<ProfileFormKeys>(undefined, "lookingForAJob", [], Input, { type: "checkbox" })}</div>
         <div className={s.header__userInfo_job}>Профессиональные знания:
-        {createField("Интересы", "lookingForAJobDescription", [], TextArea)}
+        {createField<ProfileFormKeys>("Интересы", "lookingForAJobDescription", [], TextArea)}
         </div>
 
         <div className={s.contacts}>
@@ -40,7 +39,8 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsTyp
                 // </div>
                 <div key={key} >
                   <label htmlFor={key}>{key}</label>
-                  {createField(key, 'contacts.' + key, [], Input)}
+                  {/* todo: typize createField() for embedded object */}
+                  {createField(key, 'contacts.' + key.toString(), [], Input)}
                 </div>
 
               );
@@ -58,6 +58,5 @@ const ProfileForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsTyp
 }
 
 let ProfileEditForm = reduxForm<ProfileType, PropsType>({ form: 'profile-edit' })(ProfileForm);
-
 
 export default ProfileEditForm

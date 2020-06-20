@@ -8,12 +8,12 @@ import { ProfileType, ContactsType } from '../../../types/types'
 import { Redirect } from 'react-router-dom';
 
 type PropsType = {
-  profile: ProfileType|null
+  profile: ProfileType
   status: string
   isOwner: boolean
   updateStatus: (status:string) => void
   savePhoto: (file:File) => void
-  saveProfile: (profile: ProfileType) => Promise<void>
+  saveProfile: (profile: ProfileType) => Promise<any>
 }
 const ProfileInfo:React.FC<PropsType> = (props) => {
 
@@ -75,7 +75,7 @@ const ProfileInfo:React.FC<PropsType> = (props) => {
 // }
 
 type ProfileDataPropsType = {
-  profile: ProfileType|null
+  profile: ProfileType
   isOwner: boolean
   activateEditMode: () => void
 }

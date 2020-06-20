@@ -20,7 +20,7 @@ let initialState = {
     { id: 1, message: "Gotta to break free!", likes: 2 },
     { id: 2, message: "Пью пиво", likes: 20 }
   ] as Array<PostType>,
-  profile: null as ProfileType | null,
+  profile: null as ProfileType|null,
   status: '' as string
 };
 

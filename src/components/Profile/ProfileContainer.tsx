@@ -3,15 +3,21 @@ import Profile from './Profile';
 import { connect } from 'react-redux';
 import { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../redux/profile-reducer'
 import { withRouter } from 'react-router';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+//import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { RouteComponentProps } from 'react-router';
 import { AppStateType } from '../../redux/redux-store';
 import { ProfileType } from '../../types/types';
-import { ThunkType } from '../../redux/profile-reducer'
+//import { ThunkType } from '../../redux/profile-reducer'
 
 
-type MapPropsType = ReturnType<typeof mapStateToProps> // тип для mapStateToProps
+type MapStateType = ReturnType<typeof mapStateToProps> // тип для mapStateToProps
+// type MapStateType = {
+//   profile: ProfileType
+//   status: string
+//   loggedUserId: number|null
+//   isAuth: boolean
+// }
 
 type MapDispatchType = {
   getUserProfile: (userId: number) => void
@@ -26,7 +32,7 @@ type PathParamsType = {
 }
 type RouterPropsType = RouteComponentProps<PathParamsType>
 
-type PropsType = MapPropsType & MapDispatchType & RouterPropsType
+type PropsType = MapStateType & MapDispatchType & RouterPropsType
 
 // основной класс
 class ProfileContainer extends React.Component<PropsType> {
@@ -36,7 +42,7 @@ class ProfileContainer extends React.Component<PropsType> {
     if (!userId) {
       // если userId не указан в URL, пробуем получить ID залогинненного пользователя
       userId = this.props.loggedUserId;
-      // если пользователь не залогинен, перекидываем на страницу Login 
+      // если пользователь не залогинен, перекидываем на страницу логина 
       // (почему не Redirect на LoginPage?)
       if (!userId) {
         // todo: replace push with Redirect
@@ -49,7 +55,6 @@ class ProfileContainer extends React.Component<PropsType> {
     } else {
       console.error("ProfileContainer.refreshProfile: userId must be specified");
     }
-
   }
 
   componentDidMount() {
@@ -78,14 +83,13 @@ class ProfileContainer extends React.Component<PropsType> {
 
 let mapStateToProps = (state: AppStateType) => {
   return ({
-    profile: state.profilePage.profile as ProfileType | null,
+    profile: state.profilePage.profile as ProfileType,
     status: state.profilePage.status,
     loggedUserId: state.auth.userId,
     isAuth: state.auth.isAuth
   })
 };
 
-export default compose<React.ComponentType>(connect<MapPropsType, MapDispatchType, {}, AppStateType>(
-  mapStateToProps,
-  { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile }
-), withRouter, withAuthRedirect)(ProfileContainer);
+export default compose<React.ComponentType>(
+  connect( mapStateToProps,  { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile } ), withRouter)
+  (ProfileContainer);
